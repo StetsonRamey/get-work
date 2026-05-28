@@ -1,0 +1,651 @@
+<!doctype html>
+<!-- ==================================================================
+     STETSON RAMEY · Portfolio / Capabilities · base document
+     Adapted from Kami one-pager-en, expanded to 2 pages A4.
+
+     Per-prospect customization points (search for these tokens):
+       Northwind Labs
+       (hook applied)
+       2026.05.21
+
+     Keep the rest stable across sends.
+     ================================================================== -->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Stetson Ramey · Automation & Integration Portfolio</title>
+        <meta name="author" content="Stetson Ramey" />
+        <meta
+            name="description"
+            content="Full-stack automation engineer building and maintaining production systems for small-business operators. Airtable, Zapier, Val.town, Cloudflare Workers, Stripe, DocuSign, QuickBooks." />
+        <meta
+            name="keywords"
+            content="automation, integration, Airtable, Zapier, Val.town, Cloudflare Workers, freelance, retainer" />
+        <meta name="generator" content="Kami" />
+        <style>
+            @page {
+                size: A4;
+                margin: 14mm 16mm 14mm 16mm;
+                background: #f5f4ed;
+            }
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --parchment: #f5f4ed;
+                --ivory: #faf9f5;
+                --sand: #e8e6dc;
+                --near-black: #141413;
+                --dark-warm: #3d3d3a;
+                --olive: #504e49;
+                --stone: #6b6a64;
+                --brand: #1b365d;
+                --border: #e8e6dc;
+                --border-soft: #e5e3d8;
+                --tag-bg: #e4ecf5;
+
+                --serif: Charter, Georgia, Palatino, "Times New Roman", serif;
+                --sans: var(--serif);
+            }
+
+            html,
+            body {
+                background: var(--parchment);
+            }
+
+            @media screen {
+                body {
+                    max-width: 210mm;
+                    margin: 0 auto;
+                    padding: 14mm 16mm;
+                    box-shadow: 0 0 24px rgba(0, 0, 0, 0.06);
+                }
+            }
+
+            body {
+                color: var(--near-black);
+                font-family: var(--serif);
+                font-size: 10pt;
+                line-height: 1.45;
+                widows: 3;
+                orphans: 3;
+            }
+
+            a {
+                color: var(--brand);
+                text-decoration: none;
+            }
+
+            /* ---------- HEADER ---------- */
+            .header {
+                display: flex;
+                align-items: center;
+                gap: 14pt;
+                margin-bottom: 12pt;
+                padding-bottom: 12pt;
+                border-bottom: 0.3pt dotted var(--border);
+            }
+            .headshot {
+                width: 22mm;
+                height: 22mm;
+                border-radius: 50%;
+                object-fit: cover;
+                flex-shrink: 0;
+                border: 1pt solid var(--border);
+            }
+            .header-text {
+                flex: 1;
+                border-left: 2.5pt solid var(--brand);
+                border-radius: 1.5pt;
+                padding-left: 10pt;
+            }
+            .eyebrow {
+                font-size: 8.5pt;
+                color: var(--brand);
+                letter-spacing: 1.2pt;
+                text-transform: uppercase;
+                font-weight: 500;
+                margin-bottom: 3pt;
+            }
+            h1 {
+                font-family: var(--serif);
+                font-size: 24pt;
+                font-weight: 500;
+                color: var(--near-black);
+                line-height: 1.1;
+                letter-spacing: -0.3pt;
+                margin-bottom: 3pt;
+            }
+            .subtitle {
+                font-size: 11pt;
+                color: var(--olive);
+                line-height: 1.35;
+            }
+            .header-meta {
+                font-size: 8.5pt;
+                color: var(--stone);
+                text-align: right;
+                line-height: 1.55;
+                white-space: nowrap;
+                font-variant-numeric: tabular-nums;
+            }
+            .header-meta strong {
+                color: var(--dark-warm);
+                font-weight: 500;
+            }
+            .header-meta a {
+                color: var(--brand);
+            }
+
+            /* ---------- METRICS ---------- */
+            .metrics {
+                display: flex;
+                gap: 14pt;
+                margin-bottom: 14pt;
+                padding: 4pt 0 8pt 0;
+                border-bottom: 0.3pt dotted var(--border);
+            }
+            .metric {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 2pt;
+                break-inside: avoid;
+            }
+            .metric-value {
+                font-family: var(--serif);
+                font-size: 19pt;
+                font-weight: 500;
+                color: var(--brand);
+                line-height: 1;
+                letter-spacing: -0.3pt;
+                font-variant-numeric: tabular-nums;
+            }
+            .metric-label {
+                font-size: 8.5pt;
+                color: var(--olive);
+                line-height: 1.3;
+            }
+
+            /* ---------- LEAD / INTRO ---------- */
+            .lead {
+                font-size: 11.5pt;
+                line-height: 1.5;
+                color: var(--dark-warm);
+                margin-bottom: 14pt;
+            }
+            .hl {
+                color: var(--brand);
+                font-weight: 500;
+            }
+
+            /* ---------- SECTION HEADERS ---------- */
+            section {
+                margin-bottom: 14pt;
+            }
+            section:last-of-type {
+                margin-bottom: 0;
+            }
+
+            h2 {
+                font-family: var(--serif);
+                font-size: 14pt;
+                font-weight: 500;
+                color: var(--near-black);
+                margin-bottom: 6pt;
+                letter-spacing: -0.1pt;
+            }
+            h2 .sub {
+                font-size: 9pt;
+                color: var(--stone);
+                font-weight: 400;
+                margin-left: 6pt;
+            }
+
+            /* ---------- TWO-COLUMN ---------- */
+            .two-col {
+                display: grid;
+                grid-template-columns: 1.05fr 1fr;
+                gap: 20pt;
+                margin-bottom: 14pt;
+            }
+
+            ul.dash {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            ul.dash li {
+                position: relative;
+                padding-left: 12pt;
+                margin-bottom: 3pt;
+                line-height: 1.42;
+                font-size: 10pt;
+            }
+            ul.dash li::before {
+                content: "\2013";
+                position: absolute;
+                left: 0;
+                color: var(--brand);
+            }
+            ul.dash li strong {
+                color: var(--near-black);
+                font-weight: 500;
+            }
+
+            /* ---------- TOOLKIT ---------- */
+  .toolkit {
+    margin-top: 4pt;
+    padding-top: 12pt;
+    border-top: 0.3pt dotted var(--border);
+  }
+  .toolkit-logos {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14pt 12pt;
+    margin-top: 10pt;
+    align-items: center;
+    justify-items: center;
+  }
+  .toolkit-logos img {
+    height: 22pt;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+    opacity: 0.92;
+  }
+  .toolkit-note {
+    font-size: 8.5pt;
+    color: var(--stone);
+    margin-top: 10pt;
+    font-style: italic;
+  }
+
+  /* ---------- ENGAGEMENT MODELS ---------- */
+            .engagement {
+                display: flex;
+                flex-direction: column;
+                gap: 7pt;
+            }
+            .engagement-item {
+                border-left: 1.8pt solid var(--brand);
+                padding-left: 10pt;
+            }
+            .engagement-item .label {
+                font-size: 10pt;
+                font-weight: 700;
+                color: var(--near-black);
+                margin-bottom: 1pt;
+            }
+            .engagement-item .desc {
+                font-size: 9.5pt;
+                color: var(--olive);
+                line-height: 1.4;
+            }
+
+            /* ---------- PROJECT CARD ---------- */
+            .project-card {
+                margin-bottom: 12pt;
+                padding-bottom: 12pt;
+                border-bottom: 0.3pt dotted var(--border);
+                break-inside: avoid;
+            }
+            .project-card:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+            .project-head {
+                display: flex;
+                align-items: baseline;
+                gap: 10pt;
+                margin-bottom: 4pt;
+            }
+            .project-num {
+                font-family: var(--serif);
+                font-size: 16pt;
+                font-weight: 500;
+                color: var(--brand);
+                line-height: 1;
+                letter-spacing: -0.3pt;
+            }
+            .project-title {
+                font-family: var(--serif);
+                font-size: 13pt;
+                font-weight: 500;
+                color: var(--near-black);
+                flex: 1;
+                line-height: 1.2;
+            }
+            .project-role {
+                font-size: 8.5pt;
+                color: var(--stone);
+                text-transform: uppercase;
+                letter-spacing: 0.8pt;
+                white-space: nowrap;
+            }
+            .project-body {
+                font-size: 9.5pt;
+                line-height: 1.45;
+                color: var(--dark-warm);
+                margin-bottom: 5pt;
+                padding-left: 26pt;
+            }
+            .project-body strong {
+                color: var(--near-black);
+                font-weight: 500;
+            }
+            .project-meta {
+                padding-left: 26pt;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 14pt;
+                font-size: 8.5pt;
+                color: var(--stone);
+                align-items: center;
+            }
+            .project-tags {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 4pt 3pt;
+              flex: 1;
+              line-height: 1;
+              align-items: center;
+            }
+            .tag {
+              display: inline-flex;
+              align-items: center;
+              background: var(--tag-bg);
+              color: var(--brand);
+              font-size: 7.5pt;
+              font-weight: 500;
+              line-height: 1;
+              padding: 2pt 6pt;
+              border-radius: 3pt;
+              letter-spacing: 0.3pt;
+              text-transform: uppercase;
+              }
+            .project-link {
+                font-size: 8.5pt;
+                color: var(--brand);
+                white-space: nowrap;
+                font-style: italic;
+            }
+
+            /* ---------- CALLOUT / FOOTER ---------- */
+            .callout {
+                border-left: 1.8pt solid var(--brand);
+                padding: 6pt 0 6pt 14pt;
+                margin: 14pt 0 0 0;
+                font-size: 10.5pt;
+                line-height: 1.55;
+                color: var(--olive);
+                break-inside: avoid;
+            }
+            .callout strong {
+                color: var(--brand);
+                font-weight: 500;
+            }
+
+            .footer {
+                margin-top: 10pt;
+                padding-top: 6pt;
+                border-top: 0.3pt dotted var(--border);
+                font-size: 9pt;
+                color: var(--stone);
+                display: flex;
+                justify-content: space-between;
+                font-variant-numeric: tabular-nums;
+            }
+
+            /* Force page break between page 1 and Featured Work */
+            .page-break {
+                break-before: page;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- ============================================================ -->
+        <!-- PAGE 1 -->
+        <!-- ============================================================ -->
+
+        <div class="header">
+            <img class="headshot" src="assets/headshot.jpg" alt="Stetson Ramey" />
+            <div class="header-text">
+                <div class="eyebrow">Automation &amp; Integration · Portfolio</div>
+                <h1>Stetson Ramey</h1>
+                <div class="subtitle">Full-stack automation engineer building production systems for operators.</div>
+            </div>
+            <div class="header-meta">
+                <strong>Freelance / Retainer</strong>
+                <br />
+                <a href="mailto:me@stetson.dev">me@stetson.dev</a>
+                <br />
+                307.214.5159
+                <br />
+                Response within 24&thinsp;hrs
+            </div>
+        </div>
+
+        <div class="metrics">
+            <div class="metric">
+                <div class="metric-value">$200M+</div>
+                <div class="metric-label">Annual inventory&nbsp;value tracked across active DMS systems</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">1,100+</div>
+                <div class="metric-label">Customers automated per year across active deployments</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">5+ yrs</div>
+                <div class="metric-label">Longest single production system in continuous use</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">3</div>
+                <div class="metric-label">Live businesses currently running on systems I built &amp; maintain</div>
+            </div>
+        </div>
+
+        <!-- TAILORABLE INTRO -->
+        <p class="lead">
+            I've been following Northwind Labs' work and I'd love to help your team move faster. I'm a
+            <span class="hl">full-stack automation engineer</span>
+            who builds and maintains the production systems behind small businesses doing serious revenue — a
+            vintage-supercar dealer with an average per-car sale price of over $2 million, a holiday-lighting operation
+            processing $300K across ~900 customers in 60 days, a vacuum dealer running lifecycle text campaigns off POS
+            events. I work
+            <span class="hl">project-based, retainer, or hybrid</span>
+            , and I'm equally at home scoping a new build or quietly maintaining systems that have run for years without
+            supervision.
+        </p>
+
+        <div class="two-col">
+            <section>
+                <h2>Core Capabilities</h2>
+                <ul class="dash">
+                    <li>
+                        <strong>Airtable</strong>
+                        — base architecture, scripted automations, custom extensions (Spoke-style routing UIs)
+                    </li>
+                    <li>
+                        <strong>Workflow orchestration</strong>
+                        — Zapier, Pipedream, Val.town, Cloudflare Workers
+                    </li>
+                    <li>
+                        <strong>Payments &amp; docs</strong>
+                        — Stripe (invoicing, webhooks), DocuSign templating, QuickBooks P&amp;L parsing
+                    </li>
+                    <li>
+                        <strong>Customer comms</strong>
+                        — TextMagic, Twilio, Circuit/Spoke route messaging, templated email
+                    </li>
+                    <li>
+                        <strong>Custom backends</strong>
+                        — Go services, TypeScript / Node, SQLite, Hugo static sites on exe.dev VMs
+                    </li>
+                    <li>
+                        <strong>Form &amp; data plumbing</strong>
+                        — Fillout, custom intake forms, validation, spam filtering, data parsing
+                    </li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Engagement Models</h2>
+                <div class="engagement">
+                    <div class="engagement-item">
+                        <div class="label">Project-based</div>
+                        <div class="desc">Discovery → build → handoff with documentation. Fixed-scope or T&amp;M.</div>
+                    </div>
+                    <div class="engagement-item">
+                        <div class="label">Retainer</div>
+                        <div class="desc">
+                            Monitoring, optimization, new features, bug fixes. Typical 10–20 hrs/month.
+                        </div>
+                    </div>
+                    <div class="engagement-item">
+                        <div class="label">Hybrid</div>
+                        <div class="desc">
+                            Initial build with a retainer phase for ongoing care — my most common engagement.
+                        </div>
+                    </div>
+                    <div class="engagement-item">
+                        <div class="label">Subcontract</div>
+                        <div class="desc">Available to white-label under Northwind Labs's brand for client work.</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section class="toolkit">
+          <h2>Toolkit<span class="sub">tools I reach for first</span></h2>
+          <div class="toolkit-logos">
+            <img src="assets/logos/airtable.svg"   alt="Airtable">
+            <img src="assets/logos/zapier.svg"     alt="Zapier">
+            <img src="assets/logos/fillout.svg"    alt="Fillout">
+            <img src="assets/logos/stripe.svg"     alt="Stripe">
+            <img src="assets/logos/quickbooks.svg" alt="QuickBooks">
+            <img src="assets/logos/cloudflare.svg" alt="Cloudflare">
+            <img src="assets/logos/typescript.svg" alt="TypeScript">
+            <img src="assets/logos/nodedotjs.svg"  alt="Node.js">
+            <img src="assets/logos/go.svg"         alt="Go">
+            <img src="assets/logos/hugo.svg"       alt="Hugo">
+            <img src="assets/logos/sqlite.svg"     alt="SQLite">
+            <img src="assets/logos/netlify.svg"    alt="Netlify">
+          </div>
+          <div class="toolkit-note">Most-used, not exhaustive. Also fluent with Pipedream, Val.town, DocuSign, Twilio, TextMagic, exe.dev, and whatever the job needs.</div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- PAGE 2 -->
+        <!-- ============================================================ -->
+        <section class="page-break">
+            <h2>
+                Featured Work
+                <span class="sub">three production systems · video walkthroughs available</span>
+            </h2>
+
+            <div class="project-card">
+                <div class="project-head">
+                    <span class="project-num">01</span>
+                    <span class="project-title">We Are Curated &middot; Vintage Supercar DMS</span>
+                    <span class="project-role">Architect &amp; Maintainer</span>
+                </div>
+                <div class="project-body">
+                    Centralized system of record for a high-end dealer handling sourcing, inventory, sales, financial
+                    reporting, and legal docs. Built around a large Airtable base orchestrated by Zapier, with DocuSign
+                    for multi-template Bills of Sale and a custom parser that extracts class codes from QuickBooks
+                    P&amp;L / Balance Sheet exports for the finance team.
+                    <strong>Runs the entire business operation</strong>
+                    — ~150 cars sold per year at ~$3M average sale price, ~200 active inventory cars tracked, multiple
+                    years in continuous production.
+                </div>
+                <div class="project-meta">
+                    <div class="project-tags">
+                        <span class="tag">Airtable</span>
+                        <span class="tag">Zapier</span>
+                        <span class="tag">DocuSign</span>
+                        <span class="tag">QuickBooks</span>
+                        <span class="tag">Custom Parsing</span>
+                    </div>
+                    <span class="project-link">▶ <a href="https://screenshots.stetson.dev/gvlCKkQR">video walkthrough</a></span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-head">
+                    <span class="project-num">02</span>
+                    <span class="project-title">Tis the Season Holiday Lighting &middot; Full-Stack Ops Platform</span>
+                    <span class="project-role">Co-owner &amp; Builder</span>
+                </div>
+                <div class="project-body">
+                    Customer lifecycle platform for a seasonal lighting business — signups, contact intake, scheduling,
+                    route management, text comms, invoicing, and payment tracking. Hugo static marketing site on an
+                    exe.dev VM with a Go backend; Fillout for yearly signups and a contact form (both validated and
+                    spam-filtered into Airtable); TextMagic for customer messaging; Spoke (custom Airtable extension)
+                    for route &amp; schedule management; Stripe for invoicing and payments.
+                    <strong>
+                        Processes 900–1,000 customers per season and ~$300K through Stripe in a 60-day window
+                    </strong>
+                    , with the previous iteration running entirely on Val.town via Netlify.
+                </div>
+                <div class="project-meta">
+                    <div class="project-tags">
+                        <span class="tag">Hugo</span>
+                        <span class="tag">Go</span>
+                        <span class="tag">Airtable</span>
+                        <span class="tag">Fillout</span>
+                        <span class="tag">TextMagic</span>
+                        <span class="tag">Stripe</span>
+                        <span class="tag">Spoke</span>
+                        <span class="tag">exe.dev</span>
+                    </div>
+                    <span class="project-link">▶ <a href="https://screenshots.stetson.dev/H3Lss0f2">video walkthrough</a></span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-head">
+                    <span class="project-num">03</span>
+                    <span class="project-title">Authorized Vacuum &middot; Lifecycle Text Automation</span>
+                    <span class="project-role">Full-stack Builder</span>
+                </div>
+                <div class="project-body">
+                    POS-driven text automation for a retail vacuum dealer. Zapier listens for sale events from the POS,
+                    Val.town runs the business logic and persists customers to SQLite, a daily CRON evaluates records
+                    and triggers one of two templated messages: a 7-day thank-you &amp; issue-check, or a 365-day annual
+                    service reminder.
+                    <strong>~200 customers processed per year, ~400 outbound texts</strong>
+                    , fully unattended — no manual touchpoints required for the dealer to run the program.
+                </div>
+                <div class="project-meta">
+                    <div class="project-tags">
+                        <span class="tag">Zapier</span>
+                        <span class="tag">Val.town</span>
+                        <span class="tag">SQLite</span>
+                        <span class="tag">TextMagic</span>
+                        <span class="tag">CRON</span>
+                    </div>
+                    <span class="project-link">▶ <a href="https://youtu.be/lgUEQDWyaNE">video walkthrough</a></span>
+                </div>
+            </div>
+        </section>
+
+        <div class="callout">
+            <strong>Available now</strong>
+            for project starts, retainer engagements, or white-label subcontract work under Northwind Labs's brand.
+            Most engagements kick off within a week. Reach out at
+            <a href="mailto:me@stetson.dev">me@stetson.dev</a>
+            or 307.214.5159 — I respond within 24 hours.
+        </div>
+
+        <div class="footer">
+            <span>Stetson Ramey · Automation &amp; Integration</span>
+            <span>2026.05.21</span>
+        </div>
+    </body>
+</html>
