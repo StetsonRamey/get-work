@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Outreach Preview Directory</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f3eb;
+      --card: #fffdf8;
+      --ink: #182033;
+      --muted: #687184;
+      --line: #e3ddcf;
+      --green: #1f7a4a;
+      --teal: #4caea7;
+      --shadow: 0 18px 60px rgba(24,32,51,.08);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(76,174,167,.18), transparent 28rem),
+        radial-gradient(circle at 90% 15%, rgba(31,122,74,.12), transparent 22rem),
+        var(--bg);
+    }
+    main { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; padding: 4rem 0; }
+    .hero { margin-bottom: 2rem; }
+    .eyebrow {
+      margin: 0 0 .7rem;
+      color: var(--green);
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    h1 { margin: 0; font-size: clamp(2.7rem, 8vw, 5.7rem); line-height: .95; letter-spacing: -.06em; }
+    .lead { margin: 1rem 0 0; max-width: 62ch; color: var(--muted); font-size: 1.08rem; line-height: 1.65; }
+    .grid { display: grid; gap: 1rem; }
+    .card {
+      background: color-mix(in srgb, var(--card) 92%, transparent);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 1.1rem;
+      backdrop-filter: blur(8px);
+    }
+    h2 { margin: .15rem .35rem 1rem; font-size: 1rem; letter-spacing: .02em; color: var(--green); }
+    .items { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: .75rem; }
+    .item {
+      display: grid;
+      gap: .35rem;
+      min-height: 8.5rem;
+      padding: 1rem;
+      text-decoration: none;
+      color: inherit;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+    }
+    .item:hover { transform: translateY(-2px); border-color: var(--teal); box-shadow: 0 14px 35px rgba(24,32,51,.10); }
+    .item-title { font-weight: 800; line-height: 1.2; }
+    .item-path { color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .78rem; overflow-wrap: anywhere; }
+    .item-slug { align-self: end; justify-self: start; color: var(--green); background: #eef7f1; border-radius: 999px; padding: .25rem .55rem; font-size: .76rem; font-weight: 800; }
+    .note { margin-top: 1rem; color: var(--muted); font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <p class="eyebrow">Local preview</p>
+      <h1>Outreach pages</h1>
+      <p class="lead">Generated from every <code>.html</code> file under <code>outreach/</code>. Run <code>./scripts/live-preview.sh</code>, edit files, and BrowserSync will refresh the browser on save.</p>
+    </header>
+    <div class="grid">
+      <section class="card">
+        <h2>Base templates</h2>
+        <div class="items">
+          <a class="item" href="/base/holiday-lighting-prospect-base.html">
+            <span class="item-title">Holiday Lighting Workflow Help for {{COMPANY_NAME}}</span>
+            <span class="item-path">/base/holiday-lighting-prospect-base.html</span>
+            <span class="item-slug">holiday-lighting-prospect-base.html</span>
+          </a>
+          <a class="item" href="/base/portfolio-base.html">
+            <span class="item-title">Stetson Ramey · Operations Infrastructure</span>
+            <span class="item-path">/base/portfolio-base.html</span>
+            <span class="item-slug">portfolio-base.html</span>
+          </a>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Prospects</h2>
+        <div class="items">
+          <a class="item" href="/prospects/acs/portfolio-v2.html">
+            <span class="item-title">Stetson Ramey · Operations Infrastructure</span>
+            <span class="item-path">/prospects/acs/portfolio-v2.html</span>
+            <span class="item-slug">acs</span>
+          </a>
+          <a class="item" href="/prospects/acs/portfolio.html">
+            <span class="item-title">Stetson Ramey · Automation &amp; Integration Portfolio</span>
+            <span class="item-path">/prospects/acs/portfolio.html</span>
+            <span class="item-slug">acs</span>
+          </a>
+          <a class="item" href="/prospects/coloradochristmaslights/portfolio.html">
+            <span class="item-title">Holiday Lighting Workflow Systems for Colorado Christmas Lights</span>
+            <span class="item-path">/prospects/coloradochristmaslights/portfolio.html</span>
+            <span class="item-slug">coloradochristmaslights</span>
+          </a>
+          <a class="item" href="/prospects/digital-minerz/portfolio.html">
+            <span class="item-title">Stetson Ramey · Automation &amp; Integration Portfolio</span>
+            <span class="item-path">/prospects/digital-minerz/portfolio.html</span>
+            <span class="item-slug">digital-minerz</span>
+          </a>
+          <a class="item" href="/prospects/gap-consulting/portfolio.html">
+            <span class="item-title">Stetson Ramey · Automation &amp; Integration Portfolio</span>
+            <span class="item-path">/prospects/gap-consulting/portfolio.html</span>
+            <span class="item-slug">gap-consulting</span>
+          </a>
+          <a class="item" href="/prospects/holiglows/portfolio.html">
+            <span class="item-title">Holiday Lighting Workflow Help for HoliGlows</span>
+            <span class="item-path">/prospects/holiglows/portfolio.html</span>
+            <span class="item-slug">holiglows</span>
+          </a>
+          <a class="item" href="/prospects/icebergchristmaslights/portfolio.html">
+            <span class="item-title">Holiday Lighting Workflow Systems for Iceberg Christmas Lights</span>
+            <span class="item-path">/prospects/icebergchristmaslights/portfolio.html</span>
+            <span class="item-slug">icebergchristmaslights</span>
+          </a>
+          <a class="item" href="/prospects/local-nerds/portfolio.html">
+            <span class="item-title">Stetson Ramey · Automation &amp; Integration Portfolio</span>
+            <span class="item-path">/prospects/local-nerds/portfolio.html</span>
+            <span class="item-slug">local-nerds</span>
+          </a>
+          <a class="item" href="/prospects/northwind/portfolio.html">
+            <span class="item-title">Stetson Ramey · Automation &amp; Integration Portfolio</span>
+            <span class="item-path">/prospects/northwind/portfolio.html</span>
+            <span class="item-slug">northwind</span>
+          </a>
+        </div>
+      </section>
+    </div>
+    <p class="note">Generated by <code>scripts/generate-outreach-index.py</code>. Restart the preview server to pick up brand-new HTML files.</p>
+  </main>
+</body>
+</html>

@@ -10,9 +10,12 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PORT="${1:-8765}"
 
+"$ROOT/scripts/generate-outreach-index.py"
+
 echo "→ Serving $ROOT/outreach on http://localhost:$PORT (no-cache)"
 echo ""
 echo "Local VM URLs:"
+echo "  Directory:    http://localhost:$PORT/"
 echo "  Base doc:     http://localhost:$PORT/base/portfolio-base.html"
 echo "  Prospects:    http://localhost:$PORT/prospects/"
 echo "  Colorado:     http://localhost:$PORT/prospects/coloradochristmaslights/portfolio.html"
