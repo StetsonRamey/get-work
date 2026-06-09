@@ -6,8 +6,10 @@ Serves prospect portfolios based on subdomain.
   Also handles get-work.exe.xyz/<slug> as a fallback.
 """
 import http.server
+import mimetypes
 import os
 import socketserver
+from urllib.parse import urlparse
 
 OUTREACH_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "outreach", "prospects")
 
@@ -18,26 +20,38 @@ HTML_PROSPECTS = {
 }
 
 
+class ReusableTCPServer(socketserver.TCPServer):
+    allow_reuse_address = True
+
+
 class ResumeHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(self):
         slug = None
+        path_slug = False
+        request_path = urlparse(self.path).path
+        path_parts = [part for part in request_path.strip("/").split("/") if part]
+        rest_parts = []
 
         # Try subdomain first: northwind.stetson.dev
         host = self.headers.get("Host", "")
-        parts = host.split(".")
+        parts = host.split(":", 1)[0].split(".")
         if len(parts) >= 3 and parts[-2] in ("stetson",):
             slug = parts[0]
+            rest_parts = path_parts
         # Also try: X-Forwarded-Host header (exe.dev proxy)
         fwd_host = self.headers.get("X-Forwarded-Host", "")
         if not slug and fwd_host:
-            fwd_parts = fwd_host.split(".")
+            fwd_parts = fwd_host.split(":", 1)[0].split(".")
             if len(fwd_parts) >= 3 and fwd_parts[-2] in ("stetson",):
                 slug = fwd_parts[0]
+                rest_parts = path_parts
         # Fallback: path-based, e.g. /northwind
-        if not slug:
-            path = self.path.strip("/").split("?")[0].split("/")[0]
-            if path and path != "favicon.ico":
+        if not slug and path_parts:
+            path = path_parts[0]
+            if path != "favicon.ico":
                 slug = path
+                path_slug = True
+                rest_parts = path_parts[1:]
 
         if not slug:
             self.send_response(200)
@@ -61,13 +75,38 @@ class ResumeHandler(http.server.BaseHTTPRequestHandler):
 
         prospect_dir = os.path.join(OUTREACH_DIR, slug)
 
-        if slug in HTML_PROSPECTS and self.path.strip("/").split("?")[0] != "pdf":
-            html_path = os.path.join(prospect_dir, "portfolio.html")
-            if not os.path.isfile(html_path):
-                self.send_error(404, f"No portfolio page found for '{slug}'")
+        if slug in HTML_PROSPECTS:
+            rest_path = "/".join(rest_parts)
+            if path_slug and not rest_path and not request_path.endswith("/"):
+                self.send_response(301)
+                self.send_header("Location", request_path + "/")
+                self.end_headers()
                 return
-            self.send_file(html_path, "text/html; charset=utf-8", f'{slug}-portfolio.html')
-            return
+            if rest_path in ("", "index.html"):
+                html_path = os.path.join(prospect_dir, "portfolio.html")
+                if not os.path.isfile(html_path):
+                    self.send_error(404, f"No portfolio page found for '{slug}'")
+                    return
+                self.send_file(html_path, "text/html; charset=utf-8", f'{slug}-portfolio.html')
+                return
+            if rest_path.startswith("assets/"):
+                asset_path = os.path.realpath(os.path.join(prospect_dir, rest_path))
+                allowed_roots = [
+                    os.path.realpath(os.path.join(prospect_dir, "assets")),
+                    os.path.realpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "outreach", "base", "assets")),
+                ]
+                if not any(asset_path == root or asset_path.startswith(root + os.sep) for root in allowed_roots):
+                    self.send_error(403, "Asset path not allowed")
+                    return
+                if not os.path.isfile(asset_path):
+                    self.send_error(404, f"Asset not found: {rest_path}")
+                    return
+                content_type = mimetypes.guess_type(asset_path)[0] or "application/octet-stream"
+                self.send_file(asset_path, content_type, os.path.basename(asset_path))
+                return
+            if rest_path != "pdf":
+                self.send_error(404, f"No route found for '{slug}/{rest_path}'")
+                return
 
         pdf_path = os.path.join(prospect_dir, "portfolio.pdf")
         if not os.path.isfile(pdf_path):
@@ -84,8 +123,9 @@ class ResumeHandler(http.server.BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(stat.st_size))
         self.send_header("Cache-Control", "no-cache")
         self.end_headers()
-        mode = "rb" if content_type == "application/pdf" else "r"
-        encoding = None if mode == "rb" else "utf-8"
+        text_types = ("text/html", "text/css", "text/javascript", "application/javascript", "image/svg+xml")
+        mode = "r" if content_type.startswith(text_types) else "rb"
+        encoding = "utf-8" if mode == "r" else None
         with open(path, mode, encoding=encoding) as f:
             data = f.read()
             if isinstance(data, str):
@@ -97,7 +137,7 @@ class ResumeHandler(http.server.BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     PORT = 8000
-    with socketserver.TCPServer(("", PORT), ResumeHandler) as httpd:
+    with ReusableTCPServer(("", PORT), ResumeHandler) as httpd:
         print(f"Serving prospect portfolios on :{PORT}")
         print(f"  Subdomain PDF:  northwind.stetson.dev → northwind's PDF")
         print(f"  Subdomain HTML: holiglows.stetson.dev → holiglows's page")
