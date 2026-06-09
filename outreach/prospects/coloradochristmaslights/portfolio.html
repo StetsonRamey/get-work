@@ -197,6 +197,32 @@
                 box-shadow: none;
                 pointer-events: none;
             }
+            .copy-email {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                min-height: 46px;
+                border: 2px dashed var(--ink);
+                background: var(--cream);
+                color: var(--ink);
+                border-radius: 999px;
+                padding: 12px 16px;
+                font: inherit;
+                font-size: 14px;
+                font-weight: 900;
+                cursor: pointer;
+            }
+            .copy-email:hover {
+                background: var(--yellow);
+            }
+            .copy-email-icon {
+                font-size: 17px;
+                line-height: 1;
+            }
+            .copy-email.copied {
+                background: var(--green);
+            }
 
             .section {
                 margin-top: 56px;
@@ -402,6 +428,7 @@
                 margin-top: 15px;
             }
             .pill {
+                display: block;
                 border: 1px solid var(--line);
                 background: var(--cream);
                 color: var(--ink);
@@ -483,6 +510,9 @@
                     font-size: 15px;
                     border-radius: 20px;
                 }
+                .copy-email {
+                    width: 100%;
+                }
             }
 
             @media print {
@@ -529,12 +559,9 @@
 
             <section class="hero">
                 <div class="eyebrow">Built for Colorado Christmas Lights</div>
-                <h1>I run a <a href="https://tistheseasonkc.com">'Tis the Season Holiday Lighting</a> and I build the systems / automations for serious operators.</h1>
+                <h1>I run a <a href="https://tistheseasonkc.com">'Tis the Season Holiday Lighting</a> and I build the systems and automations for serious operators.</h1>
                 <p class="hero-lead">
-                    When I'm not running
-                    <strong>’Tis the Season</strong>, a Kansas City holiday lighting company. In the off season, I help companies like Colorado Christmas Lights
-                    with fast websites, ad landing pages, automations, integrations, Airtable, database cleanup,
-                    quoting, billing, renewals, and routing.
+                    In the off season, I help companies like Colorado Christmas Lights with fast websites, ad landing pages, automations, integrations, Airtable, database cleanup, quoting, billing, renewals, and routing.
                 </p>
                 <div class="actions">
                     <a class="btn green" href="https://cal.com/stetsonr/30min" target="_blank" rel="noopener noreferrer">Grab a 30 minute chat</a>
@@ -543,6 +570,10 @@
                         href="mailto:me@stetson.dev?subject=Workflow%20chat%20for%20Colorado%20Christmas%20Lights">
                         Email me
                     </a>
+                    <button class="copy-email" type="button" data-copy-email="me@stetson.dev" aria-label="Copy email address">
+                        <span class="copy-email-icon" aria-hidden="true">⧉</span>
+                        <span>me@stetson.dev</span>
+                    </button>
                     <a class="btn secondary" href="sms:+13072145159">Text me</a>
                 </div>
             </section>
@@ -778,13 +809,13 @@
                         stack, not requirements.
                     </p>
                     <div class="tool-list">
-                        <span class="pill">Airtable</span>
-                        <span class="pill">Stripe</span>
-                        <span class="pill">TextMagic</span>
-                        <span class="pill">CompanyCam</span>
-                        <span class="pill">Spoke Dispatch</span>
-                        <span class="pill">Google Maps</span>
-                        <span class="pill">Custom handlers</span>
+                        <a href="https://airtable.com" rel="noopener noreferrer" target="_blank"><span class="pill">Airtable</span></a>
+                        <a href="https://stripe.com" rel="noopener noreferrer" target="_blank"><span class="pill">Stripe</span></a>
+                        <a href="https://textmagic.com" rel="noopener noreferrer" target="_blank"><span class="pill">TextMagic</span></a>
+                        <a href="https://companycam.com" rel="noopener noreferrer" target="_blank"><span class="pill">CompanyCam</span></a>
+                        <a href="https://spokedispatch.com" rel="noopener noreferrer" target="_blank"><span class="pill">Spoke Dispatch</span></a>
+                        <a href="https://go.dev" rel="noopener noreferrer" target="_blank"><span class="pill">Custom Go handlers</span></a>
+                        <a href="https://exe.dev" rel="noopener noreferrer" target="_blank"><span class="pill">Served from a Virtual Machine (VM) on Exe.dev</span></a>
                     </div>
                 </article>
                 <article class="card">
@@ -801,6 +832,10 @@
                             href="mailto:me@stetson.dev?subject=Workflow%20help%20for%20Colorado%20Christmas%20Lights">
                             Email Stetson
                         </a>
+                        <button class="copy-email" type="button" data-copy-email="me@stetson.dev" aria-label="Copy email address">
+                            <span class="copy-email-icon" aria-hidden="true">⧉</span>
+                            <span>me@stetson.dev</span>
+                        </button>
                         <a class="btn secondary" href="sms:+13072145159">Text Stetson</a>
                     </div>
                 </article>
@@ -814,6 +849,25 @@
                 </span>
             </footer>
         </main>
+        <script>
+            document.querySelectorAll(".copy-email").forEach((button) => {
+                const original = button.innerHTML;
+                button.addEventListener("click", async () => {
+                    const email = button.dataset.copyEmail;
+                    try {
+                        await navigator.clipboard.writeText(email);
+                        button.classList.add("copied");
+                        button.innerHTML = '<span class="copy-email-icon" aria-hidden="true">✓</span><span>Copied email</span>';
+                        window.setTimeout(() => {
+                            button.classList.remove("copied");
+                            button.innerHTML = original;
+                        }, 1800);
+                    } catch (error) {
+                        window.location.href = `mailto:${email}`;
+                    }
+                });
+            });
+        </script>
         <a
             class="floating-cta"
             href="sms:+13072145159?&body=Hi%20Stetson%2C%20I%27d%20like%20to%20meet%20in%20person%20and%20chat%20about%20automations.">
