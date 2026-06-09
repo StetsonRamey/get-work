@@ -206,6 +206,12 @@ def create_fastmail_draft(
     # Substitute variables in subject and body
     subject = substitute_variables(email.subject, **variables_dict)
     body = substitute_variables(email.body, **variables_dict)
+
+    # Convert plain text to simple HTML
+    html_body = "<html><body>" + "".join(
+        f"<p>{line}</p>" if line.strip() else "<br>"
+        for line in body.splitlines()
+    ) + "</body></html>"
     
     # Get or find the mailbox ID for Drafts
     mailbox_id = find_mailbox_id("Drafts")
@@ -236,12 +242,12 @@ def create_fastmail_draft(
                             "to": [{"email": variables_dict.get("contact_email", email.recipient)}],
                             "subject": subject,
                             "bodyStructure": {
-                                "type": "text/plain",
+                                "type": "text/html",
                                 "partId": "0",
                             },
                             "bodyValues": {
                                 "0": {
-                                    "value": body,
+                                    "value": html_body,
                                 }
                             },
                         }
