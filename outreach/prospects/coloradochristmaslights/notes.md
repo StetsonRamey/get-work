@@ -33,11 +33,11 @@
   - `me@stetson.dev`
   - `307-214-5159`
 - [ ] Replace custom hook headline/body if needed
-- [ ] Add quote workflow video URL
-- [ ] Add billing/setup video URL
-- [ ] Add returning customer renewal video URL
-- [ ] Add routing/dispatch video URL
-- [ ] Remove `disabled` class from video buttons after URLs are added
+- [x] Add quote workflow video URL
+- [x] Add billing/setup video URL
+- [x] Add returning customer renewal video URL
+- [x] Add routing/dispatch video URL
+- [x] Video buttons enabled from base template
 - [ ] Preview: `./scripts/preview.sh`
 - [ ] Build PDF if wanted: `./scripts/build.sh outreach/prospects/coloradochristmaslights/portfolio.html`
 - [x] Add DNS if wanted: `./scripts/add-domain.sh coloradochristmaslights`

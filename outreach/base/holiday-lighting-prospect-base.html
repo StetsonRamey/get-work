@@ -1,403 +1,824 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Holiday Lighting Workflow Systems for {{COMPANY_NAME}}</title>
-  <meta name="author" content="Stetson Ramey" />
-  <meta name="description" content="Quoting, billing, texting, renewal, and routing workflow systems for holiday lighting companies." />
-  <style>
-    :root {
-      --bg: #f6f3ea;
-      --panel: #fffdf7;
-      --ink: #161512;
-      --muted: #625f55;
-      --soft: #ded8c8;
-      --brand: #1b365d;
-      --brand-2: #8a5a1f;
-      --good: #2d5d3b;
-      --shadow: 0 18px 50px rgba(22, 21, 18, 0.08);
-      --radius: 22px;
-      --serif: Charter, Georgia, Palatino, "Times New Roman", serif;
-      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Holiday Lighting Workflow Help for {{COMPANY_NAME}}</title>
+        <meta name="author" content="Stetson Ramey" />
+        <meta
+            name="description"
+            content="Websites, landing pages, automations, integrations, and workflow help for holiday lighting companies." />
+        <style>
+            :root {
+                --bg: #fff6df;
+                --panel: #ffffff;
+                --ink: #101010;
+                --muted: #5c5c55;
+                --line: #eadfca;
+                --cream: #fffaf0;
+                --blue: #295cff;
+                --green: #1fbf75;
+                --yellow: #ffd447;
+                --orange: #ff6b35;
+                --pink: #ff4f9a;
+                --shadow: 0 20px 60px rgba(16, 16, 16, 0.1);
+                --radius: 32px;
+                --sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+            }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      background:
-        radial-gradient(circle at top left, rgba(27, 54, 93, 0.09), transparent 32rem),
-        radial-gradient(circle at top right, rgba(138, 90, 31, 0.08), transparent 34rem),
-        var(--bg);
-      color: var(--ink);
-      font-family: var(--serif);
-      line-height: 1.5;
-    }
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                margin: 0;
+                background:
+                    radial-gradient(circle at 10% -10%, rgba(255, 212, 71, 0.55), transparent 26rem),
+                    radial-gradient(circle at 95% 5%, rgba(41, 92, 255, 0.16), transparent 30rem),
+                    linear-gradient(180deg, var(--bg), #fffdf8 68%);
+                color: var(--ink);
+                font-family: var(--sans);
+                line-height: 1.55;
+            }
 
-    a { color: var(--brand); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+            a {
+                color: var(--blue);
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+            .wrap {
+                max-width: 1180px;
+                margin: 0 auto;
+                padding: 34px 24px 84px;
+            }
 
-    .wrap { max-width: 1120px; margin: 0 auto; padding: 34px 22px 56px; }
+            .topbar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 18px;
+                margin-bottom: 44px;
+                font-size: 15px;
+            }
+            .identity {
+                display: flex;
+                align-items: center;
+                gap: 13px;
+            }
+            .headshot {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 2px solid var(--panel);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            }
+            .identity strong {
+                display: block;
+                font-size: 17px;
+                letter-spacing: -0.02em;
+            }
+            .identity span {
+                color: var(--muted);
+                display: block;
+            }
+            .toplinks {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+                justify-content: flex-end;
+                font-weight: 750;
+            }
 
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 28px;
-      color: var(--muted);
-      font-family: var(--sans);
-      font-size: 14px;
-    }
-    .identity { display: flex; align-items: center; gap: 12px; }
-    .headshot {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 1px solid var(--soft);
-      background: var(--panel);
-    }
-    .identity strong { display: block; color: var(--ink); font-family: var(--serif); font-size: 17px; font-weight: 500; }
-    .identity span { display: block; }
-    .toplinks { display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end; }
+            .hero {
+                position: relative;
+                overflow: hidden;
+                background: var(--panel);
+                border: 2px solid var(--ink);
+                border-radius: 38px;
+                box-shadow: 10px 10px 0 var(--ink);
+                padding: clamp(42px, 7vw, 102px);
+            }
+            .hero:after {
+                content: "";
+                position: absolute;
+                right: clamp(18px, 5vw, 58px);
+                top: clamp(18px, 5vw, 48px);
+                width: 96px;
+                height: 96px;
+                border-radius: 30px;
+                background: linear-gradient(135deg, var(--yellow), var(--orange));
+                transform: rotate(8deg);
+                box-shadow: 12px 12px 0 var(--green);
+            }
+            .eyebrow {
+                display: inline-flex;
+                align-items: center;
+                gap: 9px;
+                margin: 0 0 26px;
+                color: var(--ink);
+                font-size: 13px;
+                font-weight: 900;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+            }
+            .eyebrow:before {
+                content: "";
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background: var(--green);
+                box-shadow:
+                    18px 0 0 var(--yellow),
+                    36px 0 0 var(--orange);
+                margin-right: 38px;
+            }
+            h1 {
+                max-width: 930px;
+                margin: 0 0 34px;
+                font-size: clamp(46px, 7.2vw, 86px);
+                line-height: 1.03;
+                letter-spacing: -0.022em;
+            }
+            .hero-lead {
+                max-width: 850px;
+                margin: 0 0 36px;
+                color: var(--muted);
+                font-size: clamp(21px, 2.4vw, 30px);
+                line-height: 1.32;
+                letter-spacing: -0.01em;
+            }
+            .hero-lead strong {
+                color: var(--ink);
+            }
 
-    .hero {
-      background: rgba(255,253,247,0.84);
-      border: 1px solid rgba(222,216,200,0.9);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: clamp(28px, 5vw, 58px);
-      margin-bottom: 24px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero:after {
-      content: "";
-      position: absolute;
-      inset: auto -80px -100px auto;
-      width: 310px;
-      height: 310px;
-      border-radius: 999px;
-      background: rgba(27, 54, 93, 0.07);
-      pointer-events: none;
-    }
-    .eyebrow {
-      font-family: var(--sans);
-      color: var(--brand);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
-    h1 {
-      font-size: clamp(42px, 7vw, 76px);
-      line-height: 1.02;
-      letter-spacing: -0.018em;
-      margin: 0 0 18px;
-      font-weight: 500;
-      max-width: 880px;
-    }
-    .hero-lead {
-      font-size: clamp(19px, 2.2vw, 26px);
-      line-height: 1.28;
-      color: var(--muted);
-      max-width: 860px;
-      margin: 0 0 26px;
-    }
-    .hero-lead strong { color: var(--ink); font-weight: 500; }
+            .actions {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 14px;
+            }
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 46px;
+                border: 2px solid var(--ink);
+                background: var(--blue);
+                color: white;
+                border-radius: 999px;
+                padding: 12px 20px;
+                font-size: 15px;
+                font-weight: 900;
+                text-decoration: none;
+                box-shadow: 4px 4px 0 var(--ink);
+            }
+            .btn:hover {
+                transform: translate(1px, 1px);
+                box-shadow: 3px 3px 0 var(--ink);
+                text-decoration: none;
+            }
+            .btn.secondary {
+                background: var(--panel);
+                color: var(--ink);
+            }
+            .btn.green {
+                background: var(--green);
+                color: var(--ink);
+            }
+            .btn.disabled {
+                background: #ece8dd;
+                color: #77746b;
+                border-color: #cfc6b7;
+                box-shadow: none;
+                pointer-events: none;
+            }
 
-    .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      border: 1px solid var(--brand);
-      background: var(--brand);
-      color: white;
-      border-radius: 999px;
-      padding: 11px 17px;
-      font-family: var(--sans);
-      font-size: 14px;
-      font-weight: 700;
-      text-decoration: none;
-    }
-    .btn:hover { text-decoration: none; filter: brightness(1.06); }
-    .btn.secondary { background: transparent; color: var(--brand); }
-    .btn.disabled { background: #e9e4d8; color: #767165; border-color: #d7d0bf; cursor: default; }
+            .section {
+                margin-top: 56px;
+            }
+            .section-title {
+                max-width: 820px;
+                margin: 0 0 28px;
+            }
+            .section-title h2 {
+                margin: 0 0 16px;
+                font-size: clamp(34px, 5vw, 58px);
+                line-height: 1.08;
+                letter-spacing: -0.04em;
+            }
+            .section-title p {
+                margin: 0;
+                color: var(--muted);
+                font-size: 20px;
+                line-height: 1.5;
+            }
 
-    .grid { display: grid; gap: 18px; }
-    .grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            .grid {
+                display: grid;
+                gap: 26px;
+            }
+            .grid.two {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .grid.three {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+            .grid.four {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
 
-    .card {
-      background: rgba(255,253,247,0.78);
-      border: 1px solid rgba(222,216,200,0.92);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: 0 10px 28px rgba(22, 21, 18, 0.04);
-    }
-    .card h2, .card h3 { margin: 0 0 10px; font-weight: 500; letter-spacing: -0.004em; }
-    .card h2 { font-size: 30px; line-height: 1.14; }
-    .card h3 { font-size: 22px; line-height: 1.2; }
-    .card p { color: var(--muted); margin: 0 0 14px; }
-    .card p:last-child { margin-bottom: 0; }
+            .card {
+                background: rgba(255, 255, 255, 0.88);
+                border: 1px solid var(--line);
+                border-radius: var(--radius);
+                padding: 34px;
+                box-shadow: 0 12px 34px rgba(16, 16, 16, 0.05);
+            }
+            .card h2,
+            .card h3 {
+                margin: 0 0 18px;
+                letter-spacing: -0.03em;
+                line-height: 1.16;
+            }
+            .card h2 {
+                font-size: 34px;
+            }
+            .card h3 {
+                font-size: 25px;
+            }
+            .card p {
+                color: var(--muted);
+                margin: 0 0 20px;
+                font-size: 17px;
+                line-height: 1.62;
+            }
+            .card p:last-child {
+                margin-bottom: 0;
+            }
 
-    .stat {
-      border-left: 3px solid var(--brand);
-      padding-left: 14px;
-    }
-    .stat strong { display: block; font-size: 26px; line-height: 1; color: var(--brand); font-weight: 500; margin-bottom: 7px; }
-    .stat span { color: var(--muted); font-family: var(--sans); font-size: 13px; }
-    .metrics-label {
-      font-family: var(--sans);
-      color: var(--brand);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-size: 12px;
-      font-weight: 800;
-      margin: 0 0 10px 3px;
-    }
+            .stat {
+                border: 2px solid var(--ink);
+                background: var(--panel);
+                box-shadow: 6px 6px 0 var(--yellow);
+            }
+            .stat strong {
+                display: block;
+                margin-bottom: 18px;
+                color: var(--ink);
+                font-size: 34px;
+                line-height: 1.08;
+                letter-spacing: -0.035em;
+            }
+            .stat span {
+                color: var(--muted);
+                font-size: 15px;
+                line-height: 1.65;
+                font-weight: 650;
+            }
+            .metrics-label {
+                margin: 0 0 18px 4px;
+                color: var(--muted);
+                font-size: 12px;
+                font-weight: 950;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+            }
+            .workflow-label {
+                margin-top: 72px;
+                margin-bottom: 28px;
+            }
 
-    .section { margin-top: 24px; }
-    .section-title { max-width: 780px; margin: 0 0 16px; }
-    .section-title h2 { font-size: clamp(30px, 4.4vw, 48px); line-height: 1; margin: 0 0 10px; font-weight: 500; letter-spacing: -0.012em; }
-    .section-title p { color: var(--muted); font-size: 18px; margin: 0; }
+            .callout {
+                background: var(--ink);
+                color: white;
+                border-radius: 38px;
+                padding: clamp(42px, 6vw, 68px);
+                display: grid;
+                grid-template-columns: 1.2fr 0.8fr;
+                gap: 36px;
+                align-items: center;
+                box-shadow: var(--shadow);
+            }
+            .callout h2 {
+                margin: 0 0 22px;
+                font-size: clamp(34px, 5vw, 60px);
+                line-height: 1.08;
+                letter-spacing: -0.04em;
+            }
+            .callout p {
+                color: #e7e2d8;
+                margin: 0;
+                font-size: 20px;
+                line-height: 1.55;
+            }
+            .callout .btn.secondary {
+                background: white;
+            }
+            .callout .btn {
+                box-shadow: 4px 4px 0 var(--yellow);
+            }
 
-    .demo-card { display: flex; flex-direction: column; min-height: 100%; }
-    .demo-num {
-      display: inline-flex;
-      width: 34px;
-      height: 34px;
-      align-items: center;
-      justify-content: center;
-      border-radius: 999px;
-      background: #e7edf5;
-      color: var(--brand);
-      font-family: var(--sans);
-      font-weight: 800;
-      font-size: 13px;
-      margin-bottom: 14px;
-    }
-    .demo-card ul {
-      margin: 0 0 18px 18px;
-      padding: 0;
-      color: var(--muted);
-      font-size: 15px;
-    }
-    .demo-card li { margin-bottom: 6px; }
-    .demo-card .actions { margin-top: auto; }
+            .service-card {
+                min-height: 100%;
+            }
+            .service-icon {
+                display: inline-flex;
+                width: 42px;
+                height: 42px;
+                align-items: center;
+                justify-content: center;
+                border: 2px solid var(--ink);
+                border-radius: 14px;
+                margin-bottom: 22px;
+                background: var(--yellow);
+                font-weight: 950;
+                box-shadow: 3px 3px 0 var(--ink);
+            }
+            .service-card:nth-child(2n) .service-icon {
+                background: var(--green);
+            }
+            .service-card:nth-child(3n) .service-icon {
+                background: var(--orange);
+                color: white;
+            }
+            .service-card:nth-child(4n) .service-icon {
+                background: var(--blue);
+                color: white;
+            }
 
-    .tool-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-    .pill {
-      border: 1px solid var(--soft);
-      background: rgba(255,255,255,0.48);
-      color: var(--ink);
-      border-radius: 999px;
-      padding: 7px 10px;
-      font-family: var(--sans);
-      font-size: 13px;
-      font-weight: 650;
-    }
+            .note {
+                border-left: 5px solid var(--orange);
+                background: #fff2dc;
+                padding: 22px 24px;
+                color: var(--muted);
+                font-size: 17px;
+                line-height: 1.6;
+            }
+            .note strong {
+                color: var(--ink);
+            }
 
-    .note {
-      border-left: 4px solid var(--brand-2);
-      background: rgba(138, 90, 31, 0.06);
-      padding: 18px 20px;
-      border-radius: 14px;
-      color: var(--muted);
-      font-size: 17px;
-    }
-    .note strong { color: var(--ink); font-weight: 500; }
+            .demo-card {
+                display: flex;
+                flex-direction: column;
+                min-height: 100%;
+            }
+            .demo-num {
+                display: inline-flex;
+                width: 42px;
+                height: 42px;
+                align-items: center;
+                justify-content: center;
+                border-radius: 999px;
+                background: var(--ink);
+                color: white;
+                font-weight: 950;
+                font-size: 13px;
+                margin-bottom: 22px;
+            }
+            .demo-card ul {
+                margin: 4px 0 26px 22px;
+                padding: 0;
+                color: var(--muted);
+                font-size: 16px;
+                line-height: 1.6;
+            }
+            .demo-card li {
+                margin-bottom: 9px;
+            }
+            .demo-card .actions {
+                margin-top: auto;
+            }
 
-    .footer {
-      margin-top: 34px;
-      padding-top: 20px;
-      border-top: 1px solid var(--soft);
-      color: var(--muted);
-      font-family: var(--sans);
-      font-size: 13px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: space-between;
-    }
+            .tool-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 9px;
+                margin-top: 15px;
+            }
+            .pill {
+                border: 1px solid var(--line);
+                background: var(--cream);
+                color: var(--ink);
+                border-radius: 999px;
+                padding: 8px 11px;
+                font-size: 13px;
+                font-weight: 850;
+            }
 
-    @media (max-width: 860px) {
-      .grid.two, .grid.three, .grid.four { grid-template-columns: 1fr; }
-      .topbar { align-items: flex-start; flex-direction: column; }
-      .toplinks { justify-content: flex-start; }
-    }
+            .footer {
+                margin-top: 64px;
+                padding-top: 24px;
+                border-top: 1px solid var(--line);
+                color: var(--muted);
+                font-size: 13px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+                justify-content: space-between;
+            }
 
-    @media print {
-      body { background: white; }
-      .wrap { padding: 0; }
-      .hero, .card { box-shadow: none; break-inside: avoid; }
-      .btn { border-color: var(--soft); color: var(--brand); background: white; }
-    }
-  </style>
-</head>
-<body>
-  <main class="wrap">
-    <header class="topbar">
-      <div class="identity">
-        <img class="headshot" src="assets/headshot.jpg" alt="Stetson Ramey" />
-        <div>
-          <strong>Stetson Ramey</strong>
-          <span>Holiday lighting operator + software builder</span>
-        </div>
-      </div>
-      <nav class="toplinks" aria-label="Contact links">
-        <a href="https://tistheseasonkc.com/">’Tis the Season</a>
-        <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
-        <a href="tel:{{PHONE_TEL}}">{{PHONE_DISPLAY}}</a>
-      </nav>
-    </header>
+            .floating-cta {
+                position: fixed;
+                right: 24px;
+                bottom: 24px;
+                z-index: 20;
+                display: inline-flex;
+                align-items: center;
+                gap: 14px;
+                max-width: calc(100vw - 48px);
+                border: 2px solid var(--ink);
+                border-radius: 24px;
+                background: var(--blue);
+                color: white;
+                padding: 16px 22px;
+                font-size: 18px;
+                font-weight: 950;
+                line-height: 1.15;
+                text-decoration: none;
+                box-shadow:
+                    8px 8px 0 var(--yellow),
+                    0 18px 50px rgba(16, 16, 16, 0.2);
+            }
+            .floating-cta:hover {
+                transform: translate(1px, 1px);
+                box-shadow:
+                    7px 7px 0 var(--yellow),
+                    0 16px 44px rgba(16, 16, 16, 0.18);
+                text-decoration: none;
+            }
+            .floating-cta span:first-child {
+                font-size: 26px;
+            }
 
-    <section class="hero">
-      <div class="eyebrow">Built for {{COMPANY_NAME}}</div>
-      <h1>Holiday lighting workflow systems for {{COMPANY_NAME}}</h1>
-      <p class="hero-lead">
-        I own and operate <strong>’Tis the Season</strong>, a Kansas City holiday lighting company. In the off season, I build practical software systems for other holiday lighting companies — quoting, billing, customer texting, renewals, and routing.
-      </p>
-      <div class="actions">
-        <a class="btn" href="mailto:{{EMAIL}}?subject=Holiday%20lighting%20workflow%20systems%20for%20{{COMPANY_NAME_ENCODED}}">Email me</a>
-        <a class="btn secondary" href="sms:{{PHONE_TEL}}">Text me</a>
-        <a class="btn secondary" href="#demos">See workflow demos</a>
-      </div>
-    </section>
+            @media (max-width: 880px) {
+                .grid.two,
+                .grid.three,
+                .grid.four,
+                .callout {
+                    grid-template-columns: 1fr;
+                }
+                .topbar {
+                    align-items: flex-start;
+                    flex-direction: column;
+                }
+                .toplinks {
+                    justify-content: flex-start;
+                }
+                .hero:after {
+                    opacity: 0.22;
+                }
+                .hero {
+                    box-shadow: 6px 6px 0 var(--ink);
+                }
+                .floating-cta {
+                    right: 14px;
+                    bottom: 14px;
+                    padding: 13px 16px;
+                    font-size: 15px;
+                    border-radius: 20px;
+                }
+            }
 
-    <section class="section" aria-label="Tis the Season operating metrics">
-      <div class="metrics-label">’Tis the Season operating snapshot</div>
-      <div class="grid three">
-        <div class="card stat"><strong>900–1,000</strong><span>’Tis the Season customers served each holiday season by three owners plus seasonal installers</span></div>
-        <div class="card stat"><strong>94%</strong><span>’Tis the Season year-over-year customer return rate</span></div>
-        <div class="card stat"><strong>220</strong><span>new ’Tis the Season customers sold in our biggest new-sales season</span></div>
-      </div>
-    </section>
+            @media print {
+                body {
+                    background: white;
+                }
+                .wrap {
+                    padding: 0;
+                }
+                .hero,
+                .card,
+                .callout {
+                    box-shadow: none;
+                    break-inside: avoid;
+                }
+                .btn {
+                    border-color: var(--line);
+                    color: var(--ink);
+                    background: white;
+                    box-shadow: none;
+                }
+                .floating-cta {
+                    display: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <main class="wrap">
+            <header class="topbar">
+                <div class="identity">
+                    <img class="headshot" src="assets/headshot.jpg" alt="Stetson Ramey" />
+                    <div>
+                        <strong>Stetson Ramey</strong>
+                        <span>Holiday lighting company operator + workflow/software builder</span>
+                    </div>
+                </div>
+                <nav class="toplinks" aria-label="Contact links">
+                    <a href="https://tistheseasonkc.com/">’Tis the Season</a>
+                    <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+                    <a href="tel:{{PHONE_TEL}}">{{PHONE_DISPLAY}}</a>
+                </nav>
+            </header>
 
-    <section class="grid two section">
-      <article class="card">
-        <h2>Operator-to-operator, not generic automation.</h2>
-        <p>
-          These examples are based on working systems from an active holiday lighting operation serving 900–1,000 customers each season with a 94% year-over-year return rate. The point is not to force a specific software stack — it is to show how seasonal workflows can be made faster, cleaner, and easier to manage.
-        </p>
-        <p>
-          I’m local to the Denver area, so if any of this is relevant, I’m happy to schedule a quick call or meet in person to compare notes.
-        </p>
-      </article>
-      <article class="card">
-        <h2>{{CUSTOM_HOOK_HEADLINE}}</h2>
-        <p>{{CUSTOM_HOOK_BODY}}</p>
-        <div class="note">
-          <strong>Build-to-suit:</strong> the demos use Airtable, Stripe, TextMagic, CompanyCam, Spoke Dispatch, Google Maps, and custom handlers. If you use different tools, the workflows can usually be adapted around your current stack.
-        </div>
-      </article>
-    </section>
+            <section class="hero">
+                <div class="eyebrow">Built for {{COMPANY_NAME}}</div>
+                <h1>I run a <a href="https://tistheseasonkc.com">'Tis the Season Holiday Lighting</a> and I build the systems / automations for serious operators.</h1>
+                <p class="hero-lead">
+                    When I'm not running
+                    <strong>’Tis the Season</strong>, a Kansas City holiday lighting company. In the off season, I help companies like {{COMPANY_NAME}}
+                    with fast websites, ad landing pages, automations, integrations, Airtable, database cleanup,
+                    quoting, billing, renewals, and routing.
+                </p>
+                <div class="actions">
+                    <a class="btn green" href="https://cal.com/stetsonr/30min" target="_blank" rel="noopener noreferrer">Grab a 30 minute chat</a>
+                    <a
+                        class="btn secondary"
+                        href="mailto:{{EMAIL}}?subject=Workflow%20chat%20for%20{{COMPANY_NAME_ENCODED}}">
+                        Email me
+                    </a>
+                    <a class="btn secondary" href="sms:{{PHONE_TEL}}">Text me</a>
+                </div>
+            </section>
 
-    <section class="grid four section" aria-label="Workflow areas">
-      <div class="card stat"><strong>Quote</strong><span>turn form submissions into priced, visual quotes</span></div>
-      <div class="card stat"><strong>Bill</strong><span>create Stripe payment links and sync customer records</span></div>
-      <div class="card stat"><strong>Renew</strong><span>reactivate existing customers by text each season</span></div>
-      <div class="card stat"><strong>Route</strong><span>group paid customers by area and dispatch crews</span></div>
-    </section>
+            <section class="section" aria-label="Tis the Season operating metrics">
+                <div class="metrics-label">I've built real systems that work in real companies and save operators hours of time</div>
+                <div class="grid three">
+                    <div class="card stat">
+                        <strong>900–1,000</strong>
+                        <span>
+                            ’Tis the Season customers served each holiday season with a lean team (3 owners + seasonal installers)
+                        </span>
+                    </div>
+                    <div class="card stat">
+                        <strong>94%</strong>
+                        <span>’Tis the Season year-over-year customer return rate</span>
+                    </div>
+                    <div class="card stat">
+                        <strong>220</strong>
+                        <span>new ’Tis the Season customers sold in our biggest new-sales season</span>
+                    </div>
+                </div>
+            </section>
 
-    <section id="demos" class="section">
-      <div class="section-title">
-        <h2>Four workflows worth showing</h2>
-        <p>Short demo videos can go here once recorded. For now, each card explains what the demo will cover.</p>
-      </div>
-      <div class="grid two">
-        <article class="card demo-card">
-          <span class="demo-num">01</span>
-          <h3>Website lead → roofline markup → personalized quote email</h3>
-          <p>A new lead flows into Airtable, the house is reviewed on Google Maps, roofline footage is entered, marked-up photos are attached, and a custom handler sends the customer a personalized quote email.</p>
-          <ul>
-            <li>Contact form to Airtable</li>
-            <li>Google Maps roofline screenshot and markup</li>
-            <li>Linear-foot pricing input</li>
-            <li>Personalized email with pricing/photos</li>
-            <li>Out-of-service-area response when needed</li>
-          </ul>
-          <div class="actions"><a class="btn {{QUOTE_VIDEO_BUTTON_CLASS}}" href="{{QUOTE_VIDEO_URL}}">Watch quote workflow demo</a></div>
-        </article>
+            <section id="calendar" class="section callout">
+                <div>
+                    <h2>Local, low-pressure, and happy to help.</h2>
+                    <p>
+                        I’m local to the Denver area. I’ll meet you for coffee, or you can grab 30 minutes on my
+                        calendar and bring one workflow that’s annoying you. No pitch required — I’ll help you think
+                        through it for free.
+                    </p>
+                </div>
+                <div class="actions">
+                    <a class="btn" href="https://cal.com/stetsonr/30min" target="_blank" rel="noopener noreferrer">Schedule a 30 minute chat</a>
+                </div>
+            </section>
 
-        <article class="card demo-card">
-          <span class="demo-num">02</span>
-          <h3>Accepted quote → Stripe, TextMagic, CompanyCam, and payment link</h3>
-          <p>When a customer moves forward, the workflow creates the customer in Stripe, TextMagic, and CompanyCam, uploads the marked roofline photo, creates the payment link, and makes it easy to text the invoice.</p>
-          <ul>
-            <li>Stripe customer/payment setup</li>
-            <li>TextMagic customer creation</li>
-            <li>CompanyCam project/customer creation</li>
-            <li>Roofline photo upload</li>
-            <li>Payment link ready to text</li>
-          </ul>
-          <div class="actions"><a class="btn {{BILLING_VIDEO_BUTTON_CLASS}}" href="{{BILLING_VIDEO_URL}}">Watch billing/setup demo</a></div>
-        </article>
+            <section class="grid two section">
+                <article class="card">
+                    <h2>{{CUSTOM_HOOK_HEADLINE}}</h2>
+                    <p>{{CUSTOM_HOOK_BODY}}</p>
+                </article>
+                <article class="card">
+                    <h2>Custom built for your business and your processes</h2>
+                    <p>
+                        These examples come from working systems inside our holiday lighting company.  Your business could be very different, but the point
+                        is not to force a specific software stack — it is to make seasonal workflows faster, cleaner,
+                        and easier to manage.
+                    </p>
+                    <div class="note">
+                        <strong>Different tools are fine:</strong>
+                        the demos use Airtable, Stripe, TextMagic, CompanyCam, Spoke Dispatch, Google Maps, and custom
+                        handlers. If you use something else, the workflows can usually adapt.
+                    </div>
+                </article>
+            </section>
 
-        <article class="card demo-card">
-          <span class="demo-num">03</span>
-          <h3>Annual renewal texts, forms, Stripe checkout, and paid status sync</h3>
-          <p>Existing customers receive a text with a renewal form. Their Airtable record updates, yearly invoice items are created, Stripe checkout is generated dynamically, and payment status syncs back automatically.</p>
-          <ul>
-            <li>Returning customer text campaign</li>
-            <li>Renewal form updates customer record</li>
-            <li>Yearly service line items generated</li>
-            <li>Dynamic Stripe checkout</li>
-            <li>Paid status synced back to Airtable</li>
-          </ul>
-          <div class="actions"><a class="btn {{RENEWAL_VIDEO_BUTTON_CLASS}}" href="{{RENEWAL_VIDEO_URL}}">Watch renewal workflow demo</a></div>
-        </article>
+            <section id="services" class="section">
+                <div class="section-title">
+                    <h2>Things I can build for your business</h2>
+                    <p>Websites, workflows, cleanup, and the weird glue between the tools your team already uses.</p>
+                </div>
+                <div class="grid three">
+                    <article class="card service-card">
+                        <span class="service-icon">1</span>
+                        <h3>Rocket-fast, SEO-friendly websites</h3>
+                        <p>
+                            Clean, modern sites that load quickly, explain the offer clearly, and make it easy for
+                            customers to request a quote.
+                            <p>See our website: <a href="https://tistheseasonkc.com" target="_blank" rel="noopener noreferrer">tistheseasonkc.com</a></p>
+                        </p>
+                    </article>
+                    <article class="card service-card">
+                        <span class="service-icon">2</span>
+                        <h3>Landing pages for ads</h3>
+                        <p>
+                            Focused pages for Google, Facebook, seasonal promos, recruiting, or service-area campaigns
+                            where the only job is conversion or if you want to A/B test ads for optimizing conversion.
+                        </p>
+                    </article>
+                    <article class="card service-card">
+                        <span class="service-icon">3</span>
+                        <h3>Automations</h3>
+                        <p>
+                            Make the tools you already use talk to each other, remove copy/paste work, make life easier for office staff or field techs,
+                            and keep customer follow-up from falling through cracks.
+                        </p>
+                    </article>
+                    <article class="card service-card">
+                        <span class="service-icon">4</span>
+                        <h3>Custom integrations</h3>
+                        <p>
+                            Connect forms, CRMs, payment systems, texting tools, maps, dispatch, internal dashboards,
+                            and other business-critical systems.
+                        </p>
+                    </article>
+                    <article class="card service-card">
+                        <span class="service-icon">5</span>
+                        <h3>Database cleanup</h3>
+                        <p>
+                            Untangle messy Airtable, Sheets, CRM exports, duplicate customers, stale statuses, and data
+                            that nobody trusts anymore.
+                        </p>
+                    </article>
+                    <article class="card service-card">
+                        <span class="service-icon">6</span>
+                        <h3>Airtable deep dives</h3>
+                        <p>
+                            Audits, rebuilds, automations, interfaces, extensions, scripts, and operator-friendly
+                            systems your team can actually use.
+                        </p>
+                    </article>
+                </div>
+            </section>
 
-        <article class="card demo-card">
-          <span class="demo-num">04</span>
-          <h3>Paid customers → area-based routes → crew dispatch</h3>
-          <p>Paid customers are grouped by area, organized with a custom Airtable extension, routed through Spoke Dispatch, and pushed to the field team so installers know where to go next.</p>
-          <ul>
-            <li>Customers grouped by area</li>
-            <li>Custom Airtable routing extension</li>
-            <li>Spoke Dispatch route building</li>
-            <li>Routes pushed to install/service team</li>
-            <li>Cleaner crew handoff</li>
-          </ul>
-          <div class="actions"><a class="btn {{ROUTING_VIDEO_BUTTON_CLASS}}" href="{{ROUTING_VIDEO_URL}}">Watch routing demo</a></div>
-        </article>
-      </div>
-    </section>
+            <div class="metrics-label workflow-label">Examples of Workflows I've Built for Our Business</div>
+            <section class="grid four section" aria-label="Workflow areas">
+                <div class="card stat">
+                    <strong>Quote</strong>
+                    <span>turn form submissions into priced, visual quotes</span>
+                </div>
+                <div class="card stat">
+                    <strong>Bill</strong>
+                    <span>create Stripe payment links and sync customer records</span>
+                </div>
+                <div class="card stat">
+                    <strong>Renew</strong>
+                    <span>reactivate existing customers by text each season</span>
+                </div>
+                <div class="card stat">
+                    <strong>Route</strong>
+                    <span>group paid customers by area and dispatch crews</span>
+                </div>
+            </section>
 
-    <section class="grid two section">
-      <article class="card">
-        <h2>The stack shown in the demos</h2>
-        <p>Specificity matters, so I’m naming the tools. These are examples from my current operating stack, not requirements.</p>
-        <div class="tool-list">
-          <span class="pill">Airtable</span>
-          <span class="pill">Stripe</span>
-          <span class="pill">TextMagic</span>
-          <span class="pill">CompanyCam</span>
-          <span class="pill">Spoke Dispatch</span>
-          <span class="pill">Google Maps</span>
-          <span class="pill">Custom handlers</span>
-        </div>
-      </article>
-      <article class="card">
-        <h2>Worth a quick conversation?</h2>
-        <p>If any of these workflows overlap with bottlenecks you run into during the season, email or text me. I’d be happy to schedule a call or meet locally in the Denver area.</p>
-        <div class="actions">
-          <a class="btn" href="mailto:{{EMAIL}}?subject=Holiday%20lighting%20workflow%20systems%20for%20{{COMPANY_NAME_ENCODED}}">Email Stetson</a>
-          <a class="btn secondary" href="sms:{{PHONE_TEL}}">Text Stetson</a>
-        </div>
-      </article>
-    </section>
+            <section id="demos" class="section">
+                <div class="section-title">
+                    <p>
+                        Short videos will show what is possible. The services above are what you can actually hire me to
+                        help with.
+                    </p>
+                </div>
+                <div class="grid two">
+                    <article class="card demo-card">
+                        <span class="demo-num">01</span>
+                        <h3>Website lead → roofline markup → personalized quote email</h3>
+                        <p>
+                            A new lead flows into Airtable, we review the house on Google Maps, roofline footage is
+                            entered, marked-up photos are attached, and a custom handler sends the customer a
+                            personalized quote email.
+                        </p>
+                        <ul>
+                            <li>Contact form to Airtable</li>
+                            <li>Linear-foot pricing input</li>
+                            <li>Personalized email with pricing/photos</li>
+                            <li>Out-of-service-area response when needed</li>
+                        </ul>
+                        <div class="actions">
+                            <a class="btn {{QUOTE_VIDEO_BUTTON_CLASS}}" href="https://screen.studio/share/5drLaiz6" target="_blank" rel="noopener noreferrer">
+                                Watch quote workflow demo
+                            </a>
+                        </div>
+                    </article>
+                    <article class="card demo-card">
+                        <span class="demo-num">02</span>
+                        <h3>Accepted quote → Stripe, TextMagic, CompanyCam, and payment link</h3>
+                        <p>
+                            When a customer moves forward, the workflow creates the customer in Stripe, TextMagic, and
+                            CompanyCam, uploads the marked roofline photo, creates the payment link, and makes it easy
+                            to text the invoice (we use another automation for 1-click texting not shown).
+                        </p>
+                        <ul>
+                            <li>Stripe customer/payment setup</li>
+                            <li>TextMagic customer creation</li>
+                            <li>CompanyCam project/customer creation</li>
+                            <li>Payment link ready to text</li>
+                        </ul>
+                        <div class="actions">
+                            <a class="btn {{BILLING_VIDEO_BUTTON_CLASS}}" href="https://screen.studio/share/5xg4tNan" target="_blank" rel="noopener noreferrer">
+                                Watch billing/setup demo
+                            </a>
+                        </div>
+                    </article>
+                    <article class="card demo-card">
+                        <span class="demo-num">03</span>
+                        <h3>Annual renewal texts, forms, Stripe checkout, and paid status sync</h3>
+                        <p>
+                            Existing customers receive a text with a link to a renewal form. Their Airtable record updates, yearly
+                            payment page link is created, Stripe checkout is generated dynamically, and payment status
+                            syncs back automatically.
+                        </p>
+                        <ul>
+                            <li>Returning customer text campaign (not shown in demo)</li>
+                            <li>Renewal form updates customer record</li>
+                            <li>Yearly service line items generated</li>
+                            <li>Dynamic Stripe checkout</li>
+                            <li>Paid status synced back to Airtable</li>
+                        </ul>
+                        <div class="actions">
+                            <a class="btn {{RENEWAL_VIDEO_BUTTON_CLASS}}" href="https://screen.studio/share/lGlxSami" target="_blank" rel="noopener noreferrer">
+                                Watch renewal workflow demo
+                            </a>
+                        </div>
+                    </article>
+                    <article class="card demo-card">
+                        <span class="demo-num">04</span>
+                        <h3>Paid customers → area-based routes → crew dispatch</h3>
+                        <p>
+                            Customers who are "yes" for the year are organized with a custom Airtable extension, routed
+                            through Spoke Dispatch, and pushed to the field team's Spoke apps so installers have routes on their phones.
+                        </p>
+                        <ul>
+                            <li>Customers grouped by area</li>
+                            <li>Custom Airtable routing extension</li>
+                            <li>Spoke Dispatch route building and optimization</li>
+                            <li>Routes pushed to install/service team mobile apps</li>
+                        </ul>
+                        <div class="actions">
+                            <a class="btn {{ROUTING_VIDEO_BUTTON_CLASS}}" href="https://screen.studio/share/VHoEhmJ8" target="_blank" rel="noopener noreferrer">
+                                Watch routing demo
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </section>
 
-    <footer class="footer">
-      <span>Prepared for {{COMPANY_NAME}} · {{DATE}}</span>
-      <span>Stetson Ramey · ’Tis the Season · <a href="https://tistheseasonkc.com/">tistheseasonkc.com</a></span>
-    </footer>
-  </main>
-</body>
+            <section class="grid two section">
+                <article class="card">
+                    <h2>The stack shown in the demos</h2>
+                    <p>
+                        Specificity matters, so I’m naming the tools. These are examples from my current operating
+                        stack, not requirements.
+                    </p>
+                    <div class="tool-list">
+                        <span class="pill">Airtable</span>
+                        <span class="pill">Stripe</span>
+                        <span class="pill">TextMagic</span>
+                        <span class="pill">CompanyCam</span>
+                        <span class="pill">Spoke Dispatch</span>
+                        <span class="pill">Google Maps</span>
+                        <span class="pill">Custom handlers</span>
+                    </div>
+                </article>
+                <article class="card">
+                    <h2>Wanna chat what automations you can build?</h2>
+                    <p>
+                        If improving your site, quote intake, customer follow-up, billing, or routing would be useful,
+                        grab 30 minutes, email me, or text me. If it lives between your website, your CRM, your
+                        spreadsheet, and your team’s daily process, I can probably help.
+                    </p>
+                    <div class="actions">
+                        <a class="btn green" href="https://cal.com/stetsonr/30min" target="_blank" rel="noopener noreferrer">Grab 30 minutes</a>
+                        <a
+                            class="btn secondary"
+                            href="mailto:{{EMAIL}}?subject=Workflow%20help%20for%20{{COMPANY_NAME_ENCODED}}">
+                            Email Stetson
+                        </a>
+                        <a class="btn secondary" href="sms:{{PHONE_TEL}}">Text Stetson</a>
+                    </div>
+                </article>
+            </section>
+
+            <footer class="footer">
+                <span>Prepared for {{COMPANY_NAME}} · {{DATE}}</span>
+                <span>
+                    Stetson Ramey · ’Tis the Season ·
+                    <a href="https://tistheseasonkc.com/">tistheseasonkc.com</a>
+                </span>
+            </footer>
+        </main>
+        <a
+            class="floating-cta"
+            href="sms:{{PHONE_TEL}}?&body=Hi%20Stetson%2C%20I%27d%20like%20to%20meet%20in%20person%20and%20chat%20about%20automations.">
+            <span>☕</span>
+            <span>Text to meet me in person</span>
+        </a>
+    </body>
 </html>

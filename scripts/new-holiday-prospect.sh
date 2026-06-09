@@ -44,10 +44,10 @@ repls = {
     "{{BILLING_VIDEO_URL}}": "#",
     "{{RENEWAL_VIDEO_URL}}": "#",
     "{{ROUTING_VIDEO_URL}}": "#",
-    "{{QUOTE_VIDEO_BUTTON_CLASS}}": "disabled",
-    "{{BILLING_VIDEO_BUTTON_CLASS}}": "disabled",
-    "{{RENEWAL_VIDEO_BUTTON_CLASS}}": "disabled",
-    "{{ROUTING_VIDEO_BUTTON_CLASS}}": "disabled",
+    "{{QUOTE_VIDEO_BUTTON_CLASS}}": "",
+    "{{BILLING_VIDEO_BUTTON_CLASS}}": "",
+    "{{RENEWAL_VIDEO_BUTTON_CLASS}}": "",
+    "{{ROUTING_VIDEO_BUTTON_CLASS}}": "",
 }
 for old, new in repls.items():
     text = text.replace(old, new)
