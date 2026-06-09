@@ -231,6 +231,7 @@ def create_fastmail_draft(
                     "create": {
                         "draft1": {
                             "mailboxIds": {mailbox_id: True},
+                            "keywords": {"$draft": True},
                             "from": [{"email": from_email}],
                             "to": [{"email": variables_dict.get("contact_email", email.recipient)}],
                             "subject": subject,
