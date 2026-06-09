@@ -16,7 +16,7 @@
 
 ## Contact info
 
-- Contact person: Owner - Somerset McCarty
+- Contact person: Somerset McCarty
 - Contact email: info@coloradochristmaslights.com
 - Contact phone/text: 303-956-7445
 - Contact form URL: https://www.coloradochristmaslights.com/christmas-lights-installation-estimate

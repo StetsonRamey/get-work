@@ -22,3 +22,7 @@ Thumbs.db
 
 # Build output
 build/
+
+# Fastmail API credentials (DO NOT COMMIT)
+.env
+.env.local

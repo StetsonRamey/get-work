@@ -9,11 +9,14 @@ The original HTML/CSS style was adapted from the tw93/Kami design system. The fu
 ```
 get-work/
 ├── docs/
-│   └── design-source.md           ← note on the archived Kami source
+│   ├── design-source.md           ← note on the archived Kami source
+│   ├── fastmail-setup.md          ← Fastmail email integration guide
+│   └── QUICK-START.md             ← 5-minute email setup
 ├── outreach/
 │   ├── base/
 │   │   ├── portfolio-base.html                    ← canonical 2-page portfolio
 │   │   ├── holiday-lighting-prospect-base.html    ← holiday lighting campaign template
+│   │   ├── email-template.md                      ← email template starting point
 │   │   ├── portfolio-base.pdf                     ← built output (preview/share)
 │   │   └── assets/
 │   │       └── headshot.jpg
@@ -21,13 +24,20 @@ get-work/
 │       └── <slug>/                ← one folder per company you're pitching
 │           ├── portfolio.html
 │           ├── portfolio.pdf
+│           ├── email.md                           ← email template (new!)
 │           └── notes.md
+├── .env.example                   ← Fastmail API config template
 └── scripts/
     ├── build.sh                   ← HTML → PDF
     ├── preview.sh                 ← local server for browser preview
     ├── new-prospect.sh            ← scaffold a standard tailored variant
-    └── new-holiday-prospect.sh    ← scaffold a holiday lighting prospect sheet
+    ├── new-holiday-prospect.sh    ← scaffold a holiday lighting prospect sheet
+    └── create-email-draft.py      ← create drafts in Fastmail (new!)
 ```
+
+## Quick Start
+
+**New:** Automatically create draft emails in Fastmail! See `docs/QUICK-START.md` for setup (5 minutes).
 
 ## Daily workflow
 
@@ -77,8 +87,30 @@ After scaffolding:
 
 For the current three-company campaign, resume from `docs/holiday-lighting-handoff.md`.
 
+### Create drafts in Fastmail
+
+```bash
+# Set up Fastmail integration (one time)
+cp .env.example .env
+# Edit .env with your Fastmail API token (see docs/QUICK-START.md)
+
+# Create draft emails from templates
+./scripts/create-email-draft.py holiglows              # First email
+./scripts/create-email-draft.py holiglows 1            # Follow-up 1
+./scripts/create-email-draft.py holiglows --all        # All emails
+./scripts/create-email-draft.py holiglows --dry-run    # Preview first
+```
+
+Templates use variables like `{PROSPECT_NAME}` and `{CONTACT_NAME}` that are auto-populated from your `notes.md`. See `docs/QUICK-START.md` for the full 5-minute setup.
+
 ## Dependencies
 
+### For portfolio HTML/PDF
 - `weasyprint` — `brew install weasyprint`
 - `poppler` (provides `pdfinfo` / `pdftoppm`) — `brew install poppler`
 - Python 3 (for `preview.sh` local server)
+
+### For Fastmail email drafts
+- `requests` — `pip3 install requests`
+- `python-dotenv` — `pip3 install python-dotenv`
+- Fastmail account with JMAP API access (free tier)
