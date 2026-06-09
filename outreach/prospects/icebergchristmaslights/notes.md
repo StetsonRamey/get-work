@@ -40,7 +40,7 @@
 - [ ] Remove `disabled` class from video buttons after URLs are added
 - [ ] Preview: `./scripts/preview.sh`
 - [ ] Build PDF if wanted: `./scripts/build.sh outreach/prospects/icebergchristmaslights/portfolio.html`
-- [ ] Add DNS if wanted: `./scripts/add-domain.sh icebergchristmaslights`
+- [x] Add DNS if wanted: `./scripts/add-domain.sh icebergchristmaslights`
 - [ ] Add domain in exe: `ssh exe.dev domain add get-work icebergchristmaslights.stetson.dev`
 
 ## Send log

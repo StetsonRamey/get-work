@@ -40,7 +40,7 @@
 - [ ] Remove `disabled` class from video buttons after URLs are added
 - [ ] Preview: `./scripts/preview.sh`
 - [ ] Build PDF if wanted: `./scripts/build.sh outreach/prospects/holiglows/portfolio.html`
-- [ ] Add DNS if wanted: `./scripts/add-domain.sh holiglows`
+- [x] Add DNS if wanted: `./scripts/add-domain.sh holiglows`
 - [ ] Add domain in exe: `ssh exe.dev domain add get-work holiglows.stetson.dev`
 
 ## Send log
