@@ -1,0 +1,10 @@
+# Search-result URLs for Salt Lake City, UT (tier 2)
+# Run each query below in your local harness; paste result URLs under its 'q:' line.
+# One URL per line. Bare domains OK. Lines with # are ignored.
+
+q: christmas light installation Salt Lake City, UT
+
+q: holiday lighting company Salt Lake City, UT
+
+q: professional christmas light installers Salt Lake City, UT
+

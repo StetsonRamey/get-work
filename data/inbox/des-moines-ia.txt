@@ -1,0 +1,10 @@
+# Search-result URLs for Des Moines, IA (tier 2)
+# Run each query below in your local harness; paste result URLs under its 'q:' line.
+# One URL per line. Bare domains OK. Lines with # are ignored.
+
+q: christmas light installation Des Moines, IA
+
+q: holiday lighting company Des Moines, IA
+
+q: professional christmas light installers Des Moines, IA
+

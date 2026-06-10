@@ -1,0 +1,10 @@
+# Search-result URLs for Indianapolis, IN (tier 2)
+# Run each query below in your local harness; paste result URLs under its 'q:' line.
+# One URL per line. Bare domains OK. Lines with # are ignored.
+
+q: christmas light installation Indianapolis, IN
+
+q: holiday lighting company Indianapolis, IN
+
+q: professional christmas light installers Indianapolis, IN
+

@@ -87,6 +87,8 @@ Aliases:
     ms.add_argument("metro", help='e.g. "Tulsa, OK"')
     ms.add_argument("--no-verify", action="store_true", help="skip homepage verification")
     ms.add_argument("--json", action="store_true", help="emit JSON")
+    ms.add_argument("--from-urls", metavar="FILE", help="read search-result URLs from FILE instead of querying engines")
+    ms.add_argument("--print-queries", action="store_true", help="print queries for this metro and exit")
 
     sub.add_parser("markets", help="regenerate outreach/markets.html market tracker")
 
@@ -304,6 +306,11 @@ def main(argv: list[str] | None = None) -> int:
                 cmd.append("--no-verify")
             if args.json:
                 cmd.append("--json")
+            if args.from_urls:
+                cmd += ["--from-urls", args.from_urls]
+            if args.print_queries:
+                cmd.append("--print-queries")
+                return run(cmd)
             rc = run(cmd)
             if rc == 0:
                 run([script("generate-markets.py")])

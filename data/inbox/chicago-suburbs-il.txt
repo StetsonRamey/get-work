@@ -1,0 +1,10 @@
+# Search-result URLs for Chicago suburbs, IL (tier 2)
+# Run each query below in your local harness; paste result URLs under its 'q:' line.
+# One URL per line. Bare domains OK. Lines with # are ignored.
+
+q: christmas light installation Chicago suburbs, IL
+
+q: holiday lighting company Chicago suburbs, IL
+
+q: professional christmas light installers Chicago suburbs, IL
+

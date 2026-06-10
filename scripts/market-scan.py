@@ -195,18 +195,53 @@ def verify(domain: str) -> dict:
     return info
 
 
-def scan(metro: str, do_verify: bool = True) -> dict:
-    known = existing_prospect_domains()
-    seen: dict[str, dict] = {}
+def collect_urls(metro: str) -> dict[str, list[str]]:
+    """Search the web for each query template; return {query: [urls]}."""
+    out = {}
     for tmpl in QUERY_TEMPLATES:
         q = tmpl.format(metro=metro)
         print(f"→ Searching: {q}")
-        for url in web_search(q):
+        out[q] = web_search(q)
+        time.sleep(QUERY_DELAY)  # be polite; datacenter IPs get rate-limited fast
+    return out
+
+
+def read_urls_file(path: Path, metro: str) -> dict[str, list[str]]:
+    """Read search-result URLs from a local file (search ran elsewhere).
+
+    Format: one URL per line. Blank lines and #-comments ignored.
+    Lines starting with 'q:' set the query label for the following URLs (optional).
+    """
+    label = f"local-search: {metro}"
+    out: dict[str, list[str]] = {}
+    for raw in path.read_text().splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        if line.lower().startswith("q:"):
+            label = line[2:].strip()
+            continue
+        if not line.startswith("http"):
+            line = "https://" + line
+        out.setdefault(label, []).append(line)
+    return out
+
+
+def scan(metro: str, do_verify: bool = True, url_sets: dict[str, list[str]] | None = None) -> dict:
+    known = existing_prospect_domains()
+    seen: dict[str, dict] = {}
+    if url_sets is None:
+        url_sets = collect_urls(metro)
+    for q, urls in url_sets.items():
+        for url in urls:
             d = domain_of(url)
-            if not d or d in seen:
+            if not d:
+                continue
+            if d in seen:
+                if q not in seen[d]["queries"]:
+                    seen[d]["queries"].append(q)
                 continue
             entry = {"domain": d, "url": url, "queries": [q], "flags": []}
-            base = d.split(".")[0] if "." in d else d
             if d in JUNK_DOMAINS or any(d.endswith("." + j) for j in JUNK_DOMAINS):
                 continue
             if any(h in d.replace("-", "") for h in FRANCHISE_HINTS):
@@ -214,7 +249,6 @@ def scan(metro: str, do_verify: bool = True) -> dict:
             if d in known:
                 entry["flags"].append("already-prospect")
             seen[d] = entry
-        time.sleep(QUERY_DELAY)  # be polite; datacenter IPs get rate-limited fast
 
     candidates = list(seen.values())
     if do_verify:
@@ -229,7 +263,7 @@ def scan(metro: str, do_verify: bool = True) -> dict:
     return {
         "metro": metro,
         "date": dt.date.today().isoformat(),
-        "queries": [t.format(metro=metro) for t in QUERY_TEMPLATES],
+        "queries": list(url_sets.keys()),
         "candidates": candidates,
     }
 
@@ -260,9 +294,28 @@ def main() -> int:
     ap.add_argument("metro", help='e.g. "Tulsa, OK"')
     ap.add_argument("--no-verify", action="store_true", help="skip homepage verification fetches")
     ap.add_argument("--json", action="store_true", help="print JSON to stdout")
+    ap.add_argument("--from-urls", metavar="FILE",
+                    help="skip search engines; read result URLs from FILE (one per line, "
+                         "'q: <query>' lines label following URLs, # comments ok)")
+    ap.add_argument("--print-queries", action="store_true",
+                    help="print the search queries for this metro and exit (run them locally)")
     args = ap.parse_args()
 
-    result = scan(args.metro, do_verify=not args.no_verify)
+    if args.print_queries:
+        for t in QUERY_TEMPLATES:
+            print(t.format(metro=args.metro))
+        return 0
+
+    url_sets = None
+    if args.from_urls:
+        url_sets = read_urls_file(Path(args.from_urls), args.metro)
+        n = sum(len(v) for v in url_sets.values())
+        if not n:
+            print(f"✗ No URLs found in {args.from_urls}", file=sys.stderr)
+            return 2
+        print(f"→ Using {n} URLs from {args.from_urls} (search skipped)")
+
+    result = scan(args.metro, do_verify=not args.no_verify, url_sets=url_sets)
 
     if not result["candidates"]:
         print("\n✗ All search engines returned 0 results — we're probably rate-limited.", file=sys.stderr)

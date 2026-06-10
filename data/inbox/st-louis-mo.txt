@@ -1,0 +1,10 @@
+# Search-result URLs for St. Louis, MO (tier 2)
+# Run each query below in your local harness; paste result URLs under its 'q:' line.
+# One URL per line. Bare domains OK. Lines with # are ignored.
+
+q: christmas light installation St. Louis, MO
+
+q: holiday lighting company St. Louis, MO
+
+q: professional christmas light installers St. Louis, MO
+

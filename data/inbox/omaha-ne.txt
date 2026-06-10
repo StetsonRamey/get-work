@@ -1,0 +1,10 @@
+# Search-result URLs for Omaha, NE (tier 2)
+# Run each query below in your local harness; paste result URLs under its 'q:' line.
+# One URL per line. Bare domains OK. Lines with # are ignored.
+
+q: christmas light installation Omaha, NE
+
+q: holiday lighting company Omaha, NE
+
+q: professional christmas light installers Omaha, NE
+

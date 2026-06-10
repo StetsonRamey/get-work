@@ -5,7 +5,10 @@
       "metro": "Dallas-Fort Worth",
       "state": "TX",
       "tier": 1,
-      "notes": "Lawn-care \u2192 lights pipeline; franchise birthplace region"
+      "notes": "Lawn-care \u2192 lights pipeline; franchise birthplace region",
+      "last_scan": "2026-06-10",
+      "installer_count": 25,
+      "scan_file": "data/scans/dallas-fort-worth-tx.json"
     },
     {
       "metro": "Houston",
@@ -20,19 +23,28 @@
       "metro": "Austin",
       "state": "TX",
       "tier": 1,
-      "notes": ""
+      "notes": "",
+      "last_scan": "2026-06-10",
+      "installer_count": 26,
+      "scan_file": "data/scans/austin-tx.json"
     },
     {
       "metro": "San Antonio",
       "state": "TX",
       "tier": 1,
-      "notes": ""
+      "notes": "",
+      "last_scan": "2026-06-10",
+      "installer_count": 27,
+      "scan_file": "data/scans/san-antonio-tx.json"
     },
     {
       "metro": "Oklahoma City",
       "state": "OK",
       "tier": 1,
-      "notes": ""
+      "notes": "",
+      "last_scan": "2026-06-10",
+      "installer_count": 21,
+      "scan_file": "data/scans/oklahoma-city-ok.json"
     },
     {
       "metro": "Tulsa",

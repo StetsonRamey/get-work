@@ -10,6 +10,14 @@ Check `outreach/markets.html` (or `data/markets.json`) for the next unworked tie
 ./getwork market-scan "Tulsa, OK"
 ```
 
+Search engines throttle this VM's IP hard. Preferred path: the **local-search handoff**. Each unscanned tier-1/2 metro has a query file at `data/inbox/<metro-slug>.txt`. Stetson runs those queries from his local machine, pastes the result URLs under each `q:` line, and pushes. Then:
+
+```bash
+./getwork market-scan "Phoenix, AZ" --from-urls data/inbox/phoenix-az.txt
+```
+
+This skips the engines entirely; dedupe/junk-filter/homepage-verify/save all run normally. Use `--print-queries` to get the query list for any metro not in the inbox.
+
 This lists verified local installers (homepage mentions holiday/christmas lighting), flags likely franchises and already-built prospects, and updates the market tracker. 10+ verified installers confirms a hot market; ≤3 suggests demoting the tier (note it in `data/markets.json`). The scan output (`data/scans/<slug>.json`) doubles as your candidate list for step 1.
 
 ## 1. Search

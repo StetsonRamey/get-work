@@ -1,0 +1,10 @@
+# Search-result URLs for Nashville, TN (tier 1)
+# Run each query below in your local harness; paste result URLs under its 'q:' line.
+# One URL per line. Bare domains OK. Lines with # are ignored.
+
+q: christmas light installation Nashville, TN
+
+q: holiday lighting company Nashville, TN
+
+q: professional christmas light installers Nashville, TN
+
