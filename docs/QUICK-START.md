@@ -55,6 +55,8 @@ getwork email holiglows --variant 1 --dry-run
 getwork live-preview --port 8765
 ```
 
+For preview servers, open the printed `https://get-work.exe.xyz:<port>/` URL from your laptop. The `localhost` URL is VM-local only.
+
 ## Create Your First Draft
 
 ### 1. Create a new prospect folder

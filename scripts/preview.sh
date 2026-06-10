@@ -9,25 +9,28 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PORT="${1:-8765}"
+if [[ "$PORT" == "8000" ]]; then
+  EXTERNAL_BASE="https://get-work.exe.xyz"
+else
+  EXTERNAL_BASE="https://get-work.exe.xyz:${PORT}"
+fi
 
 "$ROOT/scripts/generate-outreach-index.py"
 
-echo "→ Serving $ROOT/outreach on http://localhost:$PORT (no-cache)"
+echo "→ Serving $ROOT/outreach on port $PORT (no-cache)"
 echo ""
-echo "Local VM URLs:"
-echo "  Directory:    http://localhost:$PORT/"
-echo "  Base doc:     http://localhost:$PORT/base/portfolio-base.html"
-echo "  Prospects:    http://localhost:$PORT/prospects/"
-echo "  Colorado:     http://localhost:$PORT/prospects/coloradochristmaslights/portfolio.html"
-echo "  HoliGlows:    http://localhost:$PORT/prospects/holiglows/portfolio.html"
-echo "  Iceberg:      http://localhost:$PORT/prospects/icebergchristmaslights/portfolio.html"
+echo "Open from your laptop/browser:"
+echo "  Directory:    $EXTERNAL_BASE/"
+echo "  Base doc:     $EXTERNAL_BASE/base/portfolio-base.html"
+echo "  Prospects:    $EXTERNAL_BASE/prospects/"
+echo "  Colorado:     $EXTERNAL_BASE/prospects/coloradochristmaslights/portfolio.html"
+echo "  HoliGlows:    $EXTERNAL_BASE/prospects/holiglows/portfolio.html"
+echo "  Iceberg:      $EXTERNAL_BASE/prospects/icebergchristmaslights/portfolio.html"
 echo ""
-echo "Browser-from-outside-VM URLs:"
-echo "  Colorado:     http://get-work.exe.xyz:$PORT/prospects/coloradochristmaslights/portfolio.html"
-echo "  HoliGlows:    http://get-work.exe.xyz:$PORT/prospects/holiglows/portfolio.html"
-echo "  Iceberg:      http://get-work.exe.xyz:$PORT/prospects/icebergchristmaslights/portfolio.html"
+echo "Inside the VM only:"
+echo "  http://localhost:$PORT/"
 echo ""
-echo "Note: plain http is intentional for preview port $PORT. The production/custom-domain service is separate."
+echo "The exe.dev proxy provides HTTPS externally. The production/custom-domain service is separate."
 echo "(Ctrl-C to stop)"
 
 cd "$ROOT/outreach"

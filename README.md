@@ -104,6 +104,8 @@ getwork new-holiday-prospect holiglows "HoliGlows" "https://www.holiglows.com/"
 getwork live-preview --port 8765
 ```
 
+Preview commands print the exe.dev proxy URL to open from your laptop, e.g. `https://get-work.exe.xyz:8765/`. The `localhost` URL is only useful inside the VM.
+
 ### Create drafts in Fastmail
 
 ```bash
