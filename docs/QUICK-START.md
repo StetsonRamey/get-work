@@ -52,10 +52,12 @@ Then you can use `getwork` (or `get-work`) instead of typing script paths:
 ```bash
 getwork -h
 getwork email holiglows --variant 1 --dry-run
-getwork live-preview --port 8765
+getwork live-preview start --port 8765
+getwork live-preview status
+getwork live-preview stop
 ```
 
-For preview servers, open the printed `https://get-work.exe.xyz:<port>/` URL from your laptop. The `localhost` URL is VM-local only.
+Preview servers run in the background by default. Open the printed `https://get-work.exe.xyz:<port>/` URL from your laptop. The `localhost` URL is VM-local only. Use `--foreground` if you want Ctrl-C behavior.
 
 ## Create Your First Draft
 

@@ -101,10 +101,12 @@ That installs `getwork` and `get-work` shims into `~/.local/bin` so you can run 
 getwork -h
 getwork email holiglows --variant 1 --dry-run
 getwork new-holiday-prospect holiglows "HoliGlows" "https://www.holiglows.com/"
-getwork live-preview --port 8765
+getwork live-preview start --port 8765
+getwork live-preview status
+getwork live-preview stop
 ```
 
-Preview commands print the exe.dev proxy URL to open from your laptop, e.g. `https://get-work.exe.xyz:8765/`. The `localhost` URL is only useful inside the VM.
+Preview commands run in the background by default and print the exe.dev proxy URL to open from your laptop, e.g. `https://get-work.exe.xyz:8765/`. The `localhost` URL is only useful inside the VM. Use `--foreground` if you want the old Ctrl-C behavior.
 
 ### Create drafts in Fastmail
 

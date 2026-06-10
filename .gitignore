@@ -26,3 +26,6 @@ build/
 # Fastmail API credentials (DO NOT COMMIT)
 .env
 .env.local
+
+# CLI runtime pid/log files
+.runtime/

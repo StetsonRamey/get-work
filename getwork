@@ -3,12 +3,18 @@
 from __future__ import annotations
 
 import argparse
+import os
+import signal
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 SCRIPTS = ROOT / "scripts"
+RUNTIME_DIR = ROOT / ".runtime"
+PREVIEW_PID = RUNTIME_DIR / "preview.pid"
+LIVE_PREVIEW_PID = RUNTIME_DIR / "live-preview.pid"
 
 
 def run(cmd: list[str]) -> int:
@@ -37,6 +43,8 @@ def build_parser() -> argparse.ArgumentParser:
   getwork build-prospect tulsalights "Tulsa Lights" https://tulsalights.com/ --location "Tulsa, OK"
   getwork summary
   getwork live-preview --port 8765
+  getwork live-preview start --port 8765
+  getwork live-preview stop
   getwork build outreach/prospects/holiglows/portfolio.html
 
 Aliases:
@@ -75,11 +83,17 @@ Aliases:
 
     sub.add_parser("summary", help="regenerate outreach/summary.html tracking table")
 
-    preview = sub.add_parser("preview", help="start no-cache preview server")
+    preview = sub.add_parser("preview", help="manage no-cache preview server")
+    preview.add_argument("preview_action", nargs="?", choices=("start", "stop", "status", "restart"), default="start")
     preview.add_argument("--port", "-p", default="8765", help="port to serve on")
+    preview.add_argument("--foreground", "-f", action="store_true", help="run in foreground instead of background")
 
-    live = sub.add_parser("live-preview", help="start BrowserSync live preview server")
+    live = sub.add_parser("live-preview", help="manage BrowserSync live preview server")
+    live.add_argument("preview_action", nargs="?", choices=("start", "stop", "status", "restart"), default="start")
     live.add_argument("--port", "-p", default="8765", help="port to serve on")
+    live.add_argument("--foreground", "-f", action="store_true", help="run in foreground instead of background")
+
+    sub.add_parser("stop-preview", help="stop preview and live-preview background servers")
 
     build = sub.add_parser("build", help="build PDF from portfolio HTML")
     build.add_argument("html", nargs="?", help="HTML file to build; defaults to base portfolio")
@@ -95,6 +109,129 @@ Aliases:
 
     return parser
 
+
+
+def external_base(port: str) -> str:
+    return "https://get-work.exe.xyz" if str(port) == "8000" else f"https://get-work.exe.xyz:{port}"
+
+
+def pid_running(pid: int) -> bool:
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        return True
+    return True
+
+
+def read_pid(pid_file: Path) -> int | None:
+    try:
+        return int(pid_file.read_text().strip())
+    except (FileNotFoundError, ValueError):
+        return None
+
+
+def stop_managed(name: str, pid_file: Path) -> int:
+    pid = read_pid(pid_file)
+    if not pid:
+        print(f"{name} is not running (no pidfile).")
+        return 0
+    if not pid_running(pid):
+        pid_file.unlink(missing_ok=True)
+        print(f"{name} is not running (stale pidfile removed).")
+        return 0
+
+    print(f"→ Stopping {name} (process group {pid})")
+    try:
+        os.killpg(pid, signal.SIGTERM)
+    except ProcessLookupError:
+        pid_file.unlink(missing_ok=True)
+        print(f"✓ {name} already stopped")
+        return 0
+
+    for _ in range(30):
+        if not pid_running(pid):
+            pid_file.unlink(missing_ok=True)
+            print(f"✓ Stopped {name}")
+            return 0
+        time.sleep(0.1)
+
+    print(f"→ {name} did not stop after SIGTERM; sending SIGKILL")
+    try:
+        os.killpg(pid, signal.SIGKILL)
+    except ProcessLookupError:
+        pass
+    pid_file.unlink(missing_ok=True)
+    print(f"✓ Stopped {name}")
+    return 0
+
+
+def status_managed(name: str, pid_file: Path) -> int:
+    pid = read_pid(pid_file)
+    if pid and pid_running(pid):
+        print(f"✓ {name} is running (pid/process group {pid})")
+        return 0
+    if pid:
+        pid_file.unlink(missing_ok=True)
+        print(f"✗ {name} is not running (removed stale pidfile)")
+    else:
+        print(f"✗ {name} is not running")
+    return 1
+
+
+def start_managed(name: str, pid_file: Path, cmd: list[str], port: str, foreground: bool = False) -> int:
+    if foreground:
+        return run(cmd)
+
+    existing = read_pid(pid_file)
+    if existing and pid_running(existing):
+        print(f"✓ {name} is already running (pid/process group {existing})")
+        print(f"  Open: {external_base(port)}/")
+        print(f"  Stop: getwork {'live-preview' if name == 'live-preview' else 'preview'} stop")
+        return 0
+    pid_file.unlink(missing_ok=True)
+
+    RUNTIME_DIR.mkdir(exist_ok=True)
+    log_file = RUNTIME_DIR / f"{name}.log"
+    log = log_file.open("ab")
+    proc = subprocess.Popen(
+        cmd,
+        cwd=ROOT,
+        stdout=log,
+        stderr=subprocess.STDOUT,
+        start_new_session=True,
+    )
+    pid_file.write_text(str(proc.pid))
+    time.sleep(0.4)
+    if proc.poll() is not None:
+        pid_file.unlink(missing_ok=True)
+        print(f"✗ {name} failed to start. Log:")
+        try:
+            print(log_file.read_text(errors="replace")[-4000:])
+        except FileNotFoundError:
+            pass
+        return proc.returncode or 1
+
+    print(f"✓ Started {name} in the background (pid/process group {proc.pid})")
+    print(f"  Open:   {external_base(port)}/")
+    print(f"  Log:    {log_file}")
+    print(f"  Status: getwork {name} status")
+    print(f"  Stop:   getwork {name} stop")
+    return 0
+
+
+def manage_preview(name: str, action: str, port: str, foreground: bool, cmd: list[str], pid_file: Path) -> int:
+    if action == "start":
+        return start_managed(name, pid_file, cmd, port, foreground)
+    if action == "stop":
+        return stop_managed(name, pid_file)
+    if action == "status":
+        return status_managed(name, pid_file)
+    if action == "restart":
+        stop_managed(name, pid_file)
+        return start_managed(name, pid_file, cmd, port, foreground)
+    raise AssertionError(action)
 
 def install_shims(directory: str) -> int:
     install_dir = Path(directory).expanduser()
@@ -155,9 +292,27 @@ def main(argv: list[str] | None = None) -> int:
         case "summary":
             return run([script("generate-summary.py")])
         case "preview":
-            return run([script("preview.sh"), str(args.port)])
+            return manage_preview(
+                "preview",
+                args.preview_action,
+                str(args.port),
+                args.foreground,
+                [script("preview.sh"), str(args.port)],
+                PREVIEW_PID,
+            )
         case "live-preview":
-            return run([script("live-preview.sh"), str(args.port)])
+            return manage_preview(
+                "live-preview",
+                args.preview_action,
+                str(args.port),
+                args.foreground,
+                [script("live-preview.sh"), str(args.port)],
+                LIVE_PREVIEW_PID,
+            )
+        case "stop-preview":
+            code1 = stop_managed("live-preview", LIVE_PREVIEW_PID)
+            code2 = stop_managed("preview", PREVIEW_PID)
+            return code1 or code2
         case "build":
             cmd = [script("build.sh")]
             if args.html:
