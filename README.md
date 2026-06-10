@@ -1,136 +1,117 @@
-# get-work · Stetson's outreach toolkit
+# get-work · an agent-driven outreach pipeline
 
-A working directory for prospecting freelance / retainer / subcontract automation work.
+Prospecting toolkit for selling custom software to holiday-lighting installers.
+Point it at a metro and it researches the market, finds real local operators,
+builds each one a personalized pitch page on its own subdomain, and drafts the
+outreach email — leaving a tracking dashboard of the whole pipeline.
 
-The original HTML/CSS style was adapted from the tw93/Kami design system. The full Kami clone is archived at `/home/exedev/archive/kami` so it does not pollute normal searches or agent context.
+```
+"find holiday lighting companies in Tulsa and build their prospect folders"
+        │
+        ▼
+┌─ 1. MARKET SCAN ──────────────────────────────────────────────┐
+│  getwork market-scan "Tulsa, OK"                              │
+│  Google (Serper API) × 3 query variants → dedupe by domain →  │
+│  filter ~50 directory/lead-gen sites → fetch every homepage   │
+│  to verify it's a real installer → data/scans/tulsa-ok.json   │
+│  + market tracker (outreach/markets.html, 29 tiered metros)   │
+└───────────────────────────────────────────────────────────────┘
+        │  18 verified installers? hot market — go.
+        ▼
+┌─ 2. SCRAPE & BUILD ───────────────────────────────────────────┐
+│  getwork build-prospect tulsalights "Tulsa Lights" <url>      │
+│  Scrapes homepage + contact/about pages: owner emails (not    │
+│  just info@), phones, contact forms, services, socials.       │
+│  Scaffolds outreach/prospects/<slug>/ with notes.md research  │
+│  pre-filled and raw scrape.json kept for reference.           │
+└───────────────────────────────────────────────────────────────┘
+        │
+        ▼
+┌─ 3. PERSONALIZED PITCH PAGE ──────────────────────────────────┐
+│  Each prospect gets a tailored portfolio.html — their name,   │
+│  their market, demo videos — served on its own subdomain:     │
+│      https://<slug>.stetson.dev                               │
+│  (serve.py routes subdomains → prospect folders; PDF builds   │
+│  available via weasyprint for attachments.)                   │
+└───────────────────────────────────────────────────────────────┘
+        │
+        ▼
+┌─ 4. EMAIL ────────────────────────────────────────────────────┐
+│  Drafted per-prospect from voice/positioning docs, then       │
+│  getwork email <slug> --variant 1                             │
+│  pushes it straight into Fastmail Drafts via JMAP — review,   │
+│  personalize, hit send.                                       │
+└───────────────────────────────────────────────────────────────┘
+        │
+        ▼
+┌─ 5. TRACK ────────────────────────────────────────────────────┐
+│  getwork summary → outreach/summary.html                      │
+│  Pipeline table generated from every prospect's notes.md:     │
+│  status (drafting→ready→sent→replied), contact, dates.        │
+│  Never hand-edited; the notes are the source of truth.        │
+└───────────────────────────────────────────────────────────────┘
+```
 
-## What lives where
+Most of steps 1–4 are run by a coding agent following
+[`docs/agent-prospecting.md`](docs/agent-prospecting.md); the human reviews
+candidates, personalizes drafts, and presses send.
+
+## The CLI
+
+```bash
+./getwork install        # puts `getwork` on PATH (~/.local/bin)
+
+getwork market-scan "Tulsa, OK"            # validate a metro (3 searches, verified list)
+getwork market-scan "Boise, ID" --from-urls data/inbox/boise-id.txt   # offline-search mode
+getwork markets                            # regenerate the market tracker page
+getwork scrape https://example.com --json  # one-off scrape of a company site
+getwork build-prospect <slug> "Name" <url> --location "City, ST"
+getwork summary                            # regenerate the pipeline dashboard
+getwork email <slug> --variant 1           # draft into Fastmail
+getwork live-preview start                 # BrowserSync preview (port 8765)
+```
+
+## Search resilience
+
+Datacenter IPs get blocked by every search engine, so `market-scan` has a
+fallback chain:
+
+1. **Serper.dev Google API** — primary; key injected at the network edge by an
+   exe.dev integration (no secret on the VM). ~2s/query.
+2. **Brave Search HTML** scraping — works unauthenticated but ~1 query/min.
+3. **DuckDuckGo HTML** — usually captcha'd, kept as a hail mary.
+4. **Local-search handoff** — `data/inbox/<metro>.txt` files carry the queries;
+   run them from any unblocked machine, paste the result URLs back in, and
+   `--from-urls` does the filtering/verification server-side.
+
+## Repo map
 
 ```
 get-work/
+├── getwork                     ← CLI entry point
+├── serve.py                    ← <slug>.stetson.dev → prospect pitch pages
+├── data/
+│   ├── markets.json            ← 29 tiered target metros + scan results
+│   ├── scans/<metro>.json      ← verified installer lists per metro
+│   └── inbox/<metro>.txt       ← query/URL handoff files (search fallback)
 ├── docs/
-│   ├── design-source.md           ← note on the archived Kami source
-│   ├── fastmail-setup.md          ← Fastmail email integration guide
-│   └── QUICK-START.md             ← 5-minute email setup
+│   ├── agent-prospecting.md    ← the agent playbook (start here)
+│   ├── holiday-lighting-handoff.md  ← positioning, voice, campaign state
+│   └── QUICK-START.md          ← Fastmail setup (5 min)
 ├── outreach/
-│   ├── base/
-│   │   ├── portfolio-base.html                    ← canonical 2-page portfolio
-│   │   ├── holiday-lighting-prospect-base.html    ← holiday lighting campaign template
-│   │   ├── email-template.md                      ← email template starting point
-│   │   ├── portfolio-base.pdf                     ← built output (preview/share)
-│   │   └── assets/
-│   │       └── headshot.jpg
-│   └── prospects/
-│       └── <slug>/                ← one folder per company you're pitching
-│           ├── portfolio.html
-│           ├── portfolio.pdf
-│           ├── email.md                           ← email template (new!)
-│           └── notes.md
-├── .env.example                   ← Fastmail API config template
-└── scripts/
-    ├── build.sh                   ← HTML → PDF
-    ├── preview.sh                 ← local server for browser preview
-    ├── new-prospect.sh            ← scaffold a standard tailored variant
-    ├── new-holiday-prospect.sh    ← scaffold a holiday lighting prospect sheet
-    └── create-email-draft.py      ← create drafts in Fastmail (new!)
+│   ├── base/                   ← portfolio + email templates
+│   ├── summary.html            ← generated pipeline dashboard
+│   ├── markets.html            ← generated market tracker
+│   └── prospects/<slug>/       ← portfolio.html · notes.md · email-draft.md · scrape.json
+└── scripts/                    ← the machinery behind each getwork subcommand
 ```
-
-## Quick Start
-
-**New:** Automatically create draft emails in Fastmail! See `docs/QUICK-START.md` for setup (5 minutes).
-
-## Daily workflow
-
-### Preview the base doc in a browser
-
-```bash
-./scripts/preview.sh
-# then open http://localhost:8765/base/portfolio-base.html
-```
-
-Edit `outreach/base/portfolio-base.html`, refresh browser, repeat. No build required for HTML preview.
-
-### Build a PDF
-
-```bash
-./scripts/build.sh                                          # builds the base
-./scripts/build.sh outreach/prospects/local-nerds/portfolio.html
-```
-
-### Start a new standard prospect
-
-```bash
-./scripts/new-prospect.sh local-nerds "Local Nerds"
-```
-
-This creates `outreach/prospects/local-nerds/` with a copy of the standard base, a symlinked headshot, and a `notes.md` scratch file.
-
-### Start a new holiday lighting prospect
-
-```bash
-./scripts/new-holiday-prospect.sh coloradochristmaslights "Colorado Christmas Lights" "https://www.coloradochristmaslights.com/"
-```
-
-This creates `outreach/prospects/coloradochristmaslights/` using the holiday lighting prospect sheet template. The campaign plan, video outlines, email copy, and current handoff live in:
-
-```text
-docs/holiday-lighting-campaign.md
-docs/holiday-lighting-handoff.md
-```
-
-After scaffolding:
-
-1. Add the four demo video URLs once recorded.
-2. Remove the `disabled` class from video buttons.
-3. Preview: `./scripts/preview.sh`
-4. Build PDF if wanted: `./scripts/build.sh outreach/prospects/coloradochristmaslights/portfolio.html`
-
-For the current three-company campaign, resume from `docs/holiday-lighting-handoff.md`.
-
-### Install the CLI helper
-
-From the repo, run once:
-
-```bash
-./getwork install
-```
-
-That installs `getwork` and `get-work` shims into `~/.local/bin` so you can run commands from an SSH session without remembering script paths:
-
-```bash
-getwork -h
-getwork email holiglows --variant 1 --dry-run
-getwork new-holiday-prospect holiglows "HoliGlows" "https://www.holiglows.com/"
-getwork live-preview start --port 8765
-getwork live-preview status
-getwork live-preview stop
-```
-
-Preview commands run in the background by default and print the exe.dev proxy URL to open from your laptop, e.g. `https://get-work.exe.xyz:8765/`. The `localhost` URL is only useful inside the VM. Use `--foreground` if you want the old Ctrl-C behavior.
-
-### Create drafts in Fastmail
-
-```bash
-# Set up Fastmail integration (one time)
-cp .env.example .env
-# Edit .env with your Fastmail API token (see docs/QUICK-START.md)
-
-# Create draft emails from templates
-getwork email holiglows --variant 1          # Variant 1
-getwork email holiglows --variant 2          # Variant 2
-getwork email holiglows --all --dry-run      # Preview both
-```
-
-Templates use variables like `{PROSPECT_NAME}` and `{CONTACT_NAME}` that are auto-populated from your `notes.md`. See `docs/QUICK-START.md` for the full 5-minute setup.
 
 ## Dependencies
 
-### For portfolio HTML/PDF
-- `weasyprint` — `brew install weasyprint`
-- `poppler` (provides `pdfinfo` / `pdftoppm`) — `brew install poppler`
-- Python 3 (for `preview.sh` local server)
+- Python 3 with `requests`, `beautifulsoup4`, `python-dotenv`
+- `weasyprint` + `poppler` for PDF builds (optional)
+- Fastmail account with JMAP API (for email drafts) — `cp .env.example .env` and
+  see `docs/QUICK-START.md`
 
-### For Fastmail email drafts
-- `requests` — `pip3 install requests`
-- `python-dotenv` — `pip3 install python-dotenv`
-- Fastmail account with JMAP API access (free tier)
+Portfolio styling adapted from the tw93/Kami design system (archived outside
+the repo at `/home/exedev/archive/kami`).
