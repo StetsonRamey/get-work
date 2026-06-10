@@ -3,8 +3,38 @@
 # One URL per line. Bare domains OK. Lines with # are ignored.
 
 q: christmas light installation Phoenix, AZ
+https://www.azchristmaslights.com/
+https://azchristmaslighting.com/
+https://www.yelp.com/search?find_desc=christmas+light+installation&find_loc=Phoenix%2C+AZ
+https://www.lightsup-usa.com/phoenix-christmas-light-installation/
+https://phoenixprofessionalchristmaslights.com/
+https://handbholidaylighting.com/phoenix-christmas-light-installation/
+https://valleychristmaslights.com/christmas-light-installation-in-phoenix-az/
+https://www.clbaz.com/
+https://phxchristmaslights.com/
+https://www.azacewindowcleaning.com/christmas-light-installation/
 
 q: holiday lighting company Phoenix, AZ
+https://happyholidaylightingcompany.com/phoenix/
+https://www.yelp.com/biz/holiday-lighting-company-phoenix
+https://hlcaz.com/
+https://azholidaylighting.com/
+https://www.facebook.com/HLCAZ/
+https://www.azchristmaslights.com/
+https://stayofftheroof.com/
+https://www.homeadvisor.com/rated.HolidayLightingCompany.96728678.html
+https://trimlightphoenix.com/
+https://valleychristmaslights.com/holiday-light-company-in-phoenix-az/
 
 q: professional christmas light installers Phoenix, AZ
+https://phoenixprofessionalchristmaslights.com/
+https://www.lightsup-usa.com/phoenix-christmas-light-installation/
+https://www.azchristmaslights.com/
+https://www.yelp.com/search?find_desc=christmas+light+installation&find_loc=Phoenix%2C+AZ
+https://www.azacewindowcleaning.com/christmas-light-installation/
+https://www.holidaylightsphx.com/professional-christmas-light-installation-removal-storage-in-phoenix-holiday-lights-phoenix
+https://www.groundsguys.com/locations/arrowhead-phoenix/holiday-lighting/
+https://handbholidaylighting.com/phoenix-christmas-light-installation/
+https://mmholidaydecor.com/christmas-light-installation-in-phoenix-az/
+https://valleychristmaslights.com/christmas-light-installation-services-in-phoenix-az/
 
