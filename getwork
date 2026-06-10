@@ -1,0 +1,146 @@
+#!/usr/bin/env python3
+"""Small CLI wrapper for the get-work outreach toolkit."""
+from __future__ import annotations
+
+import argparse
+import subprocess
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+SCRIPTS = ROOT / "scripts"
+
+
+def run(cmd: list[str]) -> int:
+    """Run a project command from the repo root."""
+    return subprocess.run(cmd, cwd=ROOT).returncode
+
+
+def script(name: str) -> str:
+    return str(SCRIPTS / name)
+
+
+class ExamplesFormatter(argparse.RawDescriptionHelpFormatter, argparse.ArgumentDefaultsHelpFormatter):
+    pass
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        prog="getwork",
+        description="CLI for Stetson's get-work outreach toolkit.",
+        formatter_class=ExamplesFormatter,
+        epilog="""Examples:
+  getwork email holiglows --variant 1 --dry-run
+  getwork email holiglows --variant 2
+  getwork new-holiday-prospect holiglows "HoliGlows" "https://www.holiglows.com/"
+  getwork live-preview --port 8765
+  getwork build outreach/prospects/holiglows/portfolio.html
+
+Aliases:
+  get-work works too if installed via `getwork install`.
+""",
+    )
+    sub = parser.add_subparsers(dest="command", metavar="command", required=True)
+
+    email = sub.add_parser("email", help="preview/create a Fastmail draft for a prospect")
+    email.add_argument("prospect", help="prospect slug, e.g. holiglows")
+    email.add_argument("index", nargs="?", help="optional legacy zero-based variant index: 0 or 1")
+    email.add_argument("--variant", type=int, choices=(1, 2), help="email variant to draft")
+    email.add_argument("--dry-run", action="store_true", help="preview without creating a draft")
+    email.add_argument("--all", action="store_true", help="preview/create all variants")
+
+    np = sub.add_parser("new-prospect", help="scaffold a standard prospect")
+    np.add_argument("slug", help="prospect slug")
+    np.add_argument("display_name", nargs="?", help="display/company name")
+
+    nhp = sub.add_parser("new-holiday-prospect", help="scaffold a holiday-lighting prospect")
+    nhp.add_argument("slug", help="prospect slug")
+    nhp.add_argument("display_name", nargs="?", help="display/company name")
+    nhp.add_argument("website", nargs="?", help="prospect website URL")
+
+    preview = sub.add_parser("preview", help="start no-cache preview server")
+    preview.add_argument("--port", "-p", default="8765", help="port to serve on")
+
+    live = sub.add_parser("live-preview", help="start BrowserSync live preview server")
+    live.add_argument("--port", "-p", default="8765", help="port to serve on")
+
+    build = sub.add_parser("build", help="build PDF from portfolio HTML")
+    build.add_argument("html", nargs="?", help="HTML file to build; defaults to base portfolio")
+
+    add_domain = sub.add_parser("add-domain", help="add Cloudflare CNAME for a prospect slug")
+    add_domain.add_argument("slug", help="prospect slug")
+
+    sub.add_parser("index", help="regenerate outreach/index.html")
+    sub.add_parser("serve", help="run production-style slug/PDF server on port 8000")
+
+    install = sub.add_parser("install", help="install getwork and get-work shims into ~/.local/bin")
+    install.add_argument("--dir", default=str(Path.home() / ".local" / "bin"), help="install directory")
+
+    return parser
+
+
+def install_shims(directory: str) -> int:
+    install_dir = Path(directory).expanduser()
+    install_dir.mkdir(parents=True, exist_ok=True)
+    target = ROOT / "getwork"
+    for name in ("getwork", "get-work"):
+        link = install_dir / name
+        if link.exists() or link.is_symlink():
+            link.unlink()
+        link.symlink_to(target)
+        print(f"✓ Installed {link} -> {target}")
+    print("")
+    print(f"Make sure {install_dir} is in your PATH.")
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = build_parser().parse_args(argv)
+
+    match args.command:
+        case "email":
+            cmd = [script("create-email-draft.py"), args.prospect]
+            if args.index is not None:
+                cmd.append(args.index)
+            if args.variant:
+                cmd.extend(["--variant", str(args.variant)])
+            if args.all:
+                cmd.append("--all")
+            if args.dry_run:
+                cmd.append("--dry-run")
+            return run(cmd)
+        case "new-prospect":
+            cmd = [script("new-prospect.sh"), args.slug]
+            if args.display_name:
+                cmd.append(args.display_name)
+            return run(cmd)
+        case "new-holiday-prospect":
+            cmd = [script("new-holiday-prospect.sh"), args.slug]
+            if args.display_name:
+                cmd.append(args.display_name)
+            if args.website:
+                cmd.append(args.website)
+            return run(cmd)
+        case "preview":
+            return run([script("preview.sh"), str(args.port)])
+        case "live-preview":
+            return run([script("live-preview.sh"), str(args.port)])
+        case "build":
+            cmd = [script("build.sh")]
+            if args.html:
+                cmd.append(args.html)
+            return run(cmd)
+        case "add-domain":
+            return run([script("add-domain.sh"), args.slug])
+        case "index":
+            return run([script("generate-outreach-index.py")])
+        case "serve":
+            return run([sys.executable, str(ROOT / "serve.py")])
+        case "install":
+            return install_shims(args.dir)
+        case _:
+            raise AssertionError(f"Unhandled command: {args.command}")
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

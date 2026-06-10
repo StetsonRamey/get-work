@@ -39,6 +39,22 @@ FASTMAIL_ACCOUNT_ID=your_account_id_here
 FASTMAIL_MAILBOX_ID=Drafts
 ```
 
+## Optional: Install the CLI Helper
+
+From the repo, run once:
+
+```bash
+./getwork install
+```
+
+Then you can use `getwork` (or `get-work`) instead of typing script paths:
+
+```bash
+getwork -h
+getwork email holiglows --variant 1 --dry-run
+getwork live-preview --port 8765
+```
+
 ## Create Your First Draft
 
 ### 1. Create a new prospect folder
@@ -66,8 +82,8 @@ New prospect scripts copy `outreach/base/email-template.md` into the prospect fo
 ### 4. Preview (optional)
 
 ```bash
-./scripts/create-email-draft.py holiglows --variant 1 --dry-run
-./scripts/create-email-draft.py holiglows --variant 2 --dry-run
+getwork email holiglows --variant 1 --dry-run
+getwork email holiglows --variant 2 --dry-run
 ```
 
 You'll see exactly what gets sent:
@@ -90,9 +106,9 @@ Does it take you more than a few hours to plan and route all your customers, or 
 ### 5. Send to Fastmail
 
 ```bash
-./scripts/create-email-draft.py holiglows --variant 1
+getwork email holiglows --variant 1
 # or
-./scripts/create-email-draft.py holiglows --variant 2
+getwork email holiglows --variant 2
 ```
 
 Output:
@@ -122,7 +138,7 @@ For each prospect, create exactly one initial-email draft:
 ./scripts/create-email-draft.py holiglows --variant 2
 
 # Compare both without creating drafts
-./scripts/create-email-draft.py holiglows --all --dry-run
+getwork email holiglows --all --dry-run
 ```
 
 Do not use follow-up sections for now; record the chosen variant in `notes.md`.

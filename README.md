@@ -87,6 +87,23 @@ After scaffolding:
 
 For the current three-company campaign, resume from `docs/holiday-lighting-handoff.md`.
 
+### Install the CLI helper
+
+From the repo, run once:
+
+```bash
+./getwork install
+```
+
+That installs `getwork` and `get-work` shims into `~/.local/bin` so you can run commands from an SSH session without remembering script paths:
+
+```bash
+getwork -h
+getwork email holiglows --variant 1 --dry-run
+getwork new-holiday-prospect holiglows "HoliGlows" "https://www.holiglows.com/"
+getwork live-preview --port 8765
+```
+
 ### Create drafts in Fastmail
 
 ```bash
@@ -95,9 +112,9 @@ cp .env.example .env
 # Edit .env with your Fastmail API token (see docs/QUICK-START.md)
 
 # Create draft emails from templates
-./scripts/create-email-draft.py holiglows --variant 1          # Variant 1
-./scripts/create-email-draft.py holiglows --variant 2          # Variant 2
-./scripts/create-email-draft.py holiglows --all --dry-run      # Preview both
+getwork email holiglows --variant 1          # Variant 1
+getwork email holiglows --variant 2          # Variant 2
+getwork email holiglows --all --dry-run      # Preview both
 ```
 
 Templates use variables like `{PROSPECT_NAME}` and `{CONTACT_NAME}` that are auto-populated from your `notes.md`. See `docs/QUICK-START.md` for the full 5-minute setup.
