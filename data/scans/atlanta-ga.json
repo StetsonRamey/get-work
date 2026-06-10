@@ -1,0 +1,133 @@
+{
+  "metro": "Atlanta, GA",
+  "date": "2026-06-10",
+  "queries": [
+    "christmas light installation Atlanta, GA",
+    "holiday lighting company Atlanta, GA",
+    "professional christmas light installers Atlanta, GA"
+  ],
+  "candidates": [
+    {
+      "domain": "wiseguyslights.com",
+      "url": "https://wiseguyslights.com/",
+      "queries": [
+        "christmas light installation Atlanta, GA",
+        "holiday lighting company Atlanta, GA",
+        "professional christmas light installers Atlanta, GA"
+      ],
+      "flags": [],
+      "verified": false,
+      "title": "",
+      "phone": "",
+      "reason": "403 Client Error: Forbidden for url: https://wiseguyslights.com/"
+    },
+    {
+      "domain": "thechristmaslightpros.com",
+      "url": "https://www.thechristmaslightpros.com/licensee/30309",
+      "queries": [
+        "christmas light installation Atlanta, GA",
+        "holiday lighting company Atlanta, GA",
+        "professional christmas light installers Atlanta, GA"
+      ],
+      "flags": [
+        "franchise?"
+      ],
+      "verified": true,
+      "title": "The Christmas Light Pros - Christmas Light Hanging :: The Christmas Light Pros :: Christmas Light Hanging",
+      "phone": "866-934-2644",
+      "reason": ""
+    },
+    {
+      "domain": "christmaslightsupga.com",
+      "url": "https://www.christmaslightsupga.com/",
+      "queries": [
+        "christmas light installation Atlanta, GA",
+        "holiday lighting company Atlanta, GA",
+        "professional christmas light installers Atlanta, GA"
+      ],
+      "flags": [],
+      "verified": true,
+      "title": "Christmas Lighting Installation | Holiday Lighting by Christmas Lights UP",
+      "phone": "770-729-4200",
+      "reason": ""
+    },
+    {
+      "domain": "simplylit.com",
+      "url": "https://simplylit.com/residential",
+      "queries": [
+        "christmas light installation Atlanta, GA",
+        "holiday lighting company Atlanta, GA",
+        "professional christmas light installers Atlanta, GA"
+      ],
+      "flags": [],
+      "verified": true,
+      "title": "Christmas Lights, Wedding & Event Lighting, Marquee Letters | Simply Lit",
+      "phone": "(770)\u00a0626-0234",
+      "reason": ""
+    },
+    {
+      "domain": "lightsoveratlanta.com",
+      "url": "https://lightsoveratlanta.com/how-much-does-it-cost-to-have-christmas-lights-installed/",
+      "queries": [
+        "christmas light installation Atlanta, GA",
+        "professional christmas light installers Atlanta, GA"
+      ],
+      "flags": [],
+      "verified": true,
+      "title": "Premium Outdoor Lighting Solutions | Lights Over Atlanta",
+      "phone": "(470) 870-0606",
+      "reason": ""
+    },
+    {
+      "domain": "winterwonderlightsga.com",
+      "url": "https://www.winterwonderlightsga.com/",
+      "queries": [
+        "christmas light installation Atlanta, GA"
+      ],
+      "flags": [],
+      "verified": true,
+      "title": "Winter WonderLights GA  | Christmas & Holiday Light Installation | Atlanta Metro",
+      "phone": "(678) 782-9002",
+      "reason": ""
+    },
+    {
+      "domain": "clipa.com",
+      "url": "https://clipa.com/atlanta-christmas-light-training/",
+      "queries": [
+        "christmas light installation Atlanta, GA",
+        "holiday lighting company Atlanta, GA",
+        "professional christmas light installers Atlanta, GA"
+      ],
+      "flags": [],
+      "verified": true,
+      "title": "Certified Christmas Light Installers - CLIPA",
+      "phone": "(888) 552-5472",
+      "reason": ""
+    },
+    {
+      "domain": "lightsallyear.com",
+      "url": "https://lightsallyear.com/",
+      "queries": [
+        "holiday lighting company Atlanta, GA"
+      ],
+      "flags": [],
+      "verified": true,
+      "title": "Experience Local Holiday Magic with Lights All Year",
+      "phone": "(678) 889-8689",
+      "reason": ""
+    },
+    {
+      "domain": "atllightinstallers.com",
+      "url": "https://atllightinstallers.com/",
+      "queries": [
+        "holiday lighting company Atlanta, GA",
+        "professional christmas light installers Atlanta, GA"
+      ],
+      "flags": [],
+      "verified": true,
+      "title": "Christmas Light Installation & Outdoor Lighting in Atlanta",
+      "phone": "(678) 675-0780",
+      "reason": ""
+    }
+  ]
+}

@@ -78,14 +78,32 @@ FRANCHISE_HINTS = (
 KEYWORDS = ("christmas light", "holiday light", "christmas lighting", "holiday lighting")
 
 
+# Serper.dev Google API. Preferred: the exe.dev integration injects the key at
+# the network edge (https://serper.int.exe.xyz). Direct key via SERPER_API_KEY
+# also works (set SERPER_ENDPOINT=https://google.serper.dev/search for that).
 SERPER_KEY = os.environ.get("SERPER_API_KEY", "")
+SERPER_ENDPOINT = os.environ.get("SERPER_ENDPOINT", "https://serper.int.exe.xyz/search")
+
+
+def serper_available() -> bool:
+    if SERPER_KEY:
+        return True
+    try:
+        r = requests.post(SERPER_ENDPOINT, json={"q": "ping", "num": 1},
+                          headers={"Content-Type": "application/json"}, timeout=10)
+        return r.ok
+    except Exception:  # noqa: BLE001
+        return False
 
 
 def serper_search(query: str) -> list[str]:
-    """Return result URLs from the Serper.dev Google API (needs SERPER_API_KEY)."""
+    """Return result URLs from the Serper.dev Google API."""
+    headers = {"Content-Type": "application/json"}
+    if SERPER_KEY:
+        headers["X-API-KEY"] = SERPER_KEY
     r = requests.post(
-        "https://google.serper.dev/search",
-        headers={"X-API-KEY": SERPER_KEY, "Content-Type": "application/json"},
+        SERPER_ENDPOINT,
+        headers=headers,
         json={"q": query, "num": 20, "gl": "us", "hl": "en"},
         timeout=20,
     )
@@ -152,7 +170,7 @@ def ddg_search(query: str) -> list[str]:
 
 
 ENGINES = (("brave", brave_search), ("ddg", ddg_search))
-if SERPER_KEY:
+if serper_available():
     ENGINES = (("serper", serper_search),) + ENGINES
     QUERY_DELAY = int(os.environ.get("MARKET_SCAN_DELAY", "2"))  # APIs aren't IP-throttled
 

@@ -68,13 +68,19 @@
       "metro": "Atlanta",
       "state": "GA",
       "tier": 1,
-      "notes": ""
+      "notes": "",
+      "last_scan": "2026-06-10",
+      "installer_count": 8,
+      "scan_file": "data/scans/atlanta-ga.json"
     },
     {
       "metro": "Nashville",
       "state": "TN",
       "tier": 1,
-      "notes": ""
+      "notes": "",
+      "last_scan": "2026-06-10",
+      "installer_count": 9,
+      "scan_file": "data/scans/nashville-tn.json"
     },
     {
       "metro": "Charlotte",

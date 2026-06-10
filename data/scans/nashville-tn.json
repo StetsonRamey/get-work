@@ -1,0 +1,142 @@
+{
+  "metro": "Nashville, TN",
+  "date": "2026-06-10",
+  "queries": [
+    "christmas light installation Nashville, TN",
+    "holiday lighting company Nashville, TN",
+    "professional christmas light installers Nashville, TN"
+  ],
+  "candidates": [
+    {
+      "domain": "middletnchristmaslights.com",
+      "url": "https://middletnchristmaslights.com/",
+      "queries": [
+        "christmas light installation Nashville, TN",
+        "holiday lighting company Nashville, TN",
+        "professional christmas light installers Nashville, TN"
+      ],
+      "flags": [],
+      "verified": true,
+      "title": "Christmas Light Installation Franklin & Brentwood | Holiday Lighting Services | Middle Tennessee Christmas Lights",
+      "phone": "(615) 864-0919",
+      "reason": ""
+    },
+    {
+      "domain": "lightupnashville.com",
+      "url": "https://lightupnashville.com/holiday-lighting/",
+      "queries": [
+        "christmas light installation Nashville, TN",
+        "holiday lighting company Nashville, TN"
+      ],
+      "flags": [],
+      "verified": true,
+      "title": "Outdoor Lighting Nashville TN | Light Up Nashville",
+      "phone": "615-420-6114",
+      "reason": ""
+    },
+    {
+      "domain": "rednoselites.com",
+      "url": "https://www.rednoselites.com/",
+      "queries": [
+        "christmas light installation Nashville, TN",
+        "holiday lighting company Nashville, TN",
+        "professional christmas light installers Nashville, TN"
+      ],
+      "flags": [],
+      "verified": false,
+      "title": "",
+      "phone": "",
+      "reason": "HTTPSConnectionPool(host='rednoselites.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVeri"
+    },
+    {
+      "domain": "windowninjas.com",
+      "url": "https://windowninjas.com/nashville/services/holiday-lighting",
+      "queries": [
+        "christmas light installation Nashville, TN",
+        "professional christmas light installers Nashville, TN"
+      ],
+      "flags": [],
+      "verified": true,
+      "title": "Window Ninjas. Professional Window Cleaning Services",
+      "phone": "833-646-5271",
+      "reason": ""
+    },
+    {
+      "domain": "augustalights.com",
+      "url": "https://www.augustalights.com/swnashville",
+      "queries": [
+        "christmas light installation Nashville, TN",
+        "holiday lighting company Nashville, TN",
+        "professional christmas light installers Nashville, TN"
+      ],
+      "flags": [],
+      "verified": true,
+      "title": "Holiday Light Install Service, Pro Christmas Lighting",
+      "phone": "",
+      "reason": ""
+    },
+    {
+      "domain": "nashvilleholidaylights.net",
+      "url": "https://nashvilleholidaylights.net/",
+      "queries": [
+        "christmas light installation Nashville, TN",
+        "holiday lighting company Nashville, TN",
+        "professional christmas light installers Nashville, TN"
+      ],
+      "flags": [],
+      "verified": true,
+      "title": "Top Rated Christmas Light Installation in Franklin TN - Nashville Holiday Lights",
+      "phone": "(615) 362-9066",
+      "reason": ""
+    },
+    {
+      "domain": "brownspressurewashing.org",
+      "url": "https://www.brownspressurewashing.org/blog/brighten-your-holidays-with-browns-pressure-washing-outdoor-christmas-light-installation-in-nashville-tn/",
+      "queries": [
+        "christmas light installation Nashville, TN",
+        "professional christmas light installers Nashville, TN"
+      ],
+      "flags": [],
+      "verified": true,
+      "title": "Exterior Cleaning Nashville, TN | Brown's Pressure Washing",
+      "phone": "(615) 581-1581",
+      "reason": ""
+    },
+    {
+      "domain": "platinumholidaylighting.com",
+      "url": "https://platinumholidaylighting.com/",
+      "queries": [
+        "holiday lighting company Nashville, TN"
+      ],
+      "flags": [],
+      "verified": true,
+      "title": "Holiday Lighting Company | Nashville, TN : Platinum Holiday Lighting",
+      "phone": "615-788-0085",
+      "reason": ""
+    },
+    {
+      "domain": "humbugholidaylighting.com",
+      "url": "https://humbugholidaylighting.com/clarksville-tn/",
+      "queries": [
+        "holiday lighting company Nashville, TN"
+      ],
+      "flags": [],
+      "verified": true,
+      "title": "Humbug Holiday -",
+      "phone": "(833) 448-6284",
+      "reason": ""
+    },
+    {
+      "domain": "hlc-lighting.com",
+      "url": "https://www.hlc-lighting.com/",
+      "queries": [
+        "holiday lighting company Nashville, TN"
+      ],
+      "flags": [],
+      "verified": true,
+      "title": "Permanent Residential Exterior Lighting | Nashville, TN",
+      "phone": "512-560-7423",
+      "reason": ""
+    }
+  ]
+}
