@@ -44,12 +44,14 @@ def section_name(rel: Path) -> str:
 
 
 def main() -> None:
-    # Regenerate the prospect summary table first so the link is fresh.
+    # Regenerate the tracking tables first so the links are fresh.
     subprocess.run([sys.executable, str(ROOT / "scripts" / "generate-summary.py")], check=False)
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "generate-markets.py")], check=False)
 
+    skip = {INDEX, OUTREACH / "summary.html", OUTREACH / "markets.html"}
     files = sorted(
         p for p in OUTREACH.rglob("*.html")
-        if p != INDEX and p != OUTREACH / "summary.html" and ".git" not in p.parts
+        if p not in skip and ".git" not in p.parts
     )
 
     groups: dict[str, list[tuple[Path, str]]] = {}
@@ -158,7 +160,8 @@ def main() -> None:
       <p class=\"eyebrow\">Local preview</p>
       <h1>Outreach pages</h1>
       <p class=\"lead\">Generated from every <code>.html</code> file under <code>outreach/</code>. Run <code>./scripts/live-preview.sh</code>, edit files, and BrowserSync will refresh the browser on save.</p>
-      <p class=\"lead\"><a class=\"summary-link\" href=\"/summary.html\">&#128202; Prospect summary table &rarr;</a></p>
+      <p class=\"lead\"><a class=\"summary-link\" href=\"/summary.html\">&#128202; Prospect summary &rarr;</a>
+      <a class=\"summary-link\" href=\"/markets.html\">&#127758; Market tracker &rarr;</a></p>
     </header>
     <div class=\"grid\">{''.join(cards)}
     </div>

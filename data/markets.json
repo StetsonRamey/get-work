@@ -1,0 +1,182 @@
+{
+  "_comment": "Market targeting list. tier 1 = work first. Edit freely; market-scan.py updates scan fields.",
+  "markets": [
+    {
+      "metro": "Dallas-Fort Worth",
+      "state": "TX",
+      "tier": 1,
+      "notes": "Lawn-care \u2192 lights pipeline; franchise birthplace region"
+    },
+    {
+      "metro": "Houston",
+      "state": "TX",
+      "tier": 1,
+      "notes": ""
+    },
+    {
+      "metro": "Austin",
+      "state": "TX",
+      "tier": 1,
+      "notes": ""
+    },
+    {
+      "metro": "San Antonio",
+      "state": "TX",
+      "tier": 1,
+      "notes": ""
+    },
+    {
+      "metro": "Oklahoma City",
+      "state": "OK",
+      "tier": 1,
+      "notes": ""
+    },
+    {
+      "metro": "Tulsa",
+      "state": "OK",
+      "tier": 1,
+      "notes": "",
+      "last_scan": "2026-06-10",
+      "installer_count": 18,
+      "scan_file": "data/scans/tulsa-ok.json"
+    },
+    {
+      "metro": "Phoenix",
+      "state": "AZ",
+      "tier": 1,
+      "notes": ""
+    },
+    {
+      "metro": "Atlanta",
+      "state": "GA",
+      "tier": 1,
+      "notes": ""
+    },
+    {
+      "metro": "Nashville",
+      "state": "TN",
+      "tier": 1,
+      "notes": ""
+    },
+    {
+      "metro": "Charlotte",
+      "state": "NC",
+      "tier": 2,
+      "notes": ""
+    },
+    {
+      "metro": "Raleigh",
+      "state": "NC",
+      "tier": 2,
+      "notes": ""
+    },
+    {
+      "metro": "Indianapolis",
+      "state": "IN",
+      "tier": 2,
+      "notes": ""
+    },
+    {
+      "metro": "Columbus",
+      "state": "OH",
+      "tier": 2,
+      "notes": ""
+    },
+    {
+      "metro": "Cincinnati",
+      "state": "OH",
+      "tier": 2,
+      "notes": ""
+    },
+    {
+      "metro": "St. Louis",
+      "state": "MO",
+      "tier": 2,
+      "notes": ""
+    },
+    {
+      "metro": "Omaha",
+      "state": "NE",
+      "tier": 2,
+      "notes": ""
+    },
+    {
+      "metro": "Des Moines",
+      "state": "IA",
+      "tier": 2,
+      "notes": ""
+    },
+    {
+      "metro": "Minneapolis",
+      "state": "MN",
+      "tier": 2,
+      "notes": "Big market, short install window \u2014 routing pain is acute"
+    },
+    {
+      "metro": "Salt Lake City",
+      "state": "UT",
+      "tier": 2,
+      "notes": ""
+    },
+    {
+      "metro": "Boise",
+      "state": "ID",
+      "tier": 2,
+      "notes": ""
+    },
+    {
+      "metro": "Chicago suburbs",
+      "state": "IL",
+      "tier": 2,
+      "notes": "Suburbs only; skip the city core"
+    },
+    {
+      "metro": "Tampa",
+      "state": "FL",
+      "tier": 3,
+      "notes": "Verify demand \u2014 warm climate, permanent lighting competition"
+    },
+    {
+      "metro": "Orlando",
+      "state": "FL",
+      "tier": 3,
+      "notes": ""
+    },
+    {
+      "metro": "Jacksonville",
+      "state": "FL",
+      "tier": 3,
+      "notes": ""
+    },
+    {
+      "metro": "Denver",
+      "state": "CO",
+      "tier": 3,
+      "notes": "Already worked: holiglows, coloradochristmaslights, icebergchristmaslights"
+    },
+    {
+      "metro": "Las Vegas",
+      "state": "NV",
+      "tier": 3,
+      "notes": ""
+    },
+    {
+      "metro": "Wichita",
+      "state": "KS",
+      "tier": 3,
+      "notes": ""
+    },
+    {
+      "metro": "Little Rock",
+      "state": "AR",
+      "tier": 3,
+      "notes": ""
+    },
+    {
+      "metro": "Kansas City",
+      "state": "MO",
+      "tier": 0,
+      "notes": "DO NOT PROSPECT \u2014 home market ('Tis the Season)"
+    }
+  ]
+}

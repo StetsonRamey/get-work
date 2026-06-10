@@ -83,6 +83,13 @@ Aliases:
 
     sub.add_parser("summary", help="regenerate outreach/summary.html tracking table")
 
+    ms = sub.add_parser("market-scan", help="scan a metro for installer companies (no folders built)")
+    ms.add_argument("metro", help='e.g. "Tulsa, OK"')
+    ms.add_argument("--no-verify", action="store_true", help="skip homepage verification")
+    ms.add_argument("--json", action="store_true", help="emit JSON")
+
+    sub.add_parser("markets", help="regenerate outreach/markets.html market tracker")
+
     preview = sub.add_parser("preview", help="manage no-cache preview server")
     preview.add_argument("preview_action", nargs="?", choices=("start", "stop", "status", "restart"), default="start")
     preview.add_argument("--port", "-p", default="8765", help="port to serve on")
@@ -291,6 +298,18 @@ def main(argv: list[str] | None = None) -> int:
             return run(cmd)
         case "summary":
             return run([script("generate-summary.py")])
+        case "market-scan":
+            cmd = [script("market-scan.py"), args.metro]
+            if args.no_verify:
+                cmd.append("--no-verify")
+            if args.json:
+                cmd.append("--json")
+            rc = run(cmd)
+            if rc == 0:
+                run([script("generate-markets.py")])
+            return rc
+        case "markets":
+            return run([script("generate-markets.py")])
         case "preview":
             return manage_preview(
                 "preview",

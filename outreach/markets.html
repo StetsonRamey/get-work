@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Market Tracker</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+           margin: 2rem auto; max-width: 1100px; padding: 0 1rem; color: #1a1a1a; }
+    h1 { font-size: 1.5rem; margin-bottom: .25rem; }
+    .meta { color: #777; font-size: .85rem; margin-bottom: 1.25rem; }
+    table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    th, td { text-align: left; padding: .5rem .65rem; border-bottom: 1px solid #e5e5e5; vertical-align: top; }
+    th { font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; color: #888;
+         border-bottom: 2px solid #ccc; position: sticky; top: 0; background: #fff; }
+    tr:hover td { background: #fafafa; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .notes { color: #666; font-size: .85rem; max-width: 28rem; }
+    .file { color: #aaa; font-family: ui-monospace, monospace; font-size: .75rem; }
+    .badge { display: inline-block; padding: .1rem .5rem; border-radius: 999px;
+             font-size: .75rem; font-weight: 600; background: #eee; color: #555; white-space: nowrap; }
+    .tier-badge-1 { background: #d1e7dd; color: #14613f; }
+    .tier-badge-2 { background: #cfe2ff; color: #1c4f9c; }
+    .tier-badge-3 { background: #fff3cd; color: #8a6d1a; }
+    .tier-badge-0 { background: #f8d7da; color: #842029; }
+    tr.tier-0 td { opacity: .65; }
+    a { color: #0a6cff; text-decoration: none; }
+    .hint { margin-top: 1.5rem; color: #999; font-size: .8rem; }
+    code { background: #f4f4f4; padding: .1rem .3rem; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>Market Tracker</h1>
+  <p class="meta">29 markets · 1 scanned · generated 2026-06-10 17:06 ·
+    <a href="/summary.html">prospect summary</a> · <a href="/">← directory</a></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Metro</th><th>Tier</th><th>Verified installers</th><th>Prospects built</th>
+        <th>Last scan</th><th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="tier-1">
+        <td>Atlanta, GA</td>
+        <td><span class="badge tier-badge-1">tier 1</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-1">
+        <td>Austin, TX</td>
+        <td><span class="badge tier-badge-1">tier 1</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-1">
+        <td>Dallas-Fort Worth, TX</td>
+        <td><span class="badge tier-badge-1">tier 1</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes">Lawn-care → lights pipeline; franchise birthplace region</td>
+      </tr>
+      <tr class="tier-1">
+        <td>Houston, TX</td>
+        <td><span class="badge tier-badge-1">tier 1</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-1">
+        <td>Nashville, TN</td>
+        <td><span class="badge tier-badge-1">tier 1</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-1">
+        <td>Oklahoma City, OK</td>
+        <td><span class="badge tier-badge-1">tier 1</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-1">
+        <td>Phoenix, AZ</td>
+        <td><span class="badge tier-badge-1">tier 1</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-1">
+        <td>San Antonio, TX</td>
+        <td><span class="badge tier-badge-1">tier 1</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-1">
+        <td>Tulsa, OK</td>
+        <td><span class="badge tier-badge-1">tier 1</span></td>
+        <td class="num">18</td>
+        <td class="num">—</td>
+        <td>2026-06-10 <span class="file">(data/scans/tulsa-ok.json)</span></td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-2">
+        <td>Boise, ID</td>
+        <td><span class="badge tier-badge-2">tier 2</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-2">
+        <td>Charlotte, NC</td>
+        <td><span class="badge tier-badge-2">tier 2</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-2">
+        <td>Chicago suburbs, IL</td>
+        <td><span class="badge tier-badge-2">tier 2</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes">Suburbs only; skip the city core</td>
+      </tr>
+      <tr class="tier-2">
+        <td>Cincinnati, OH</td>
+        <td><span class="badge tier-badge-2">tier 2</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-2">
+        <td>Columbus, OH</td>
+        <td><span class="badge tier-badge-2">tier 2</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-2">
+        <td>Des Moines, IA</td>
+        <td><span class="badge tier-badge-2">tier 2</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-2">
+        <td>Indianapolis, IN</td>
+        <td><span class="badge tier-badge-2">tier 2</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-2">
+        <td>Minneapolis, MN</td>
+        <td><span class="badge tier-badge-2">tier 2</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes">Big market, short install window — routing pain is acute</td>
+      </tr>
+      <tr class="tier-2">
+        <td>Omaha, NE</td>
+        <td><span class="badge tier-badge-2">tier 2</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-2">
+        <td>Raleigh, NC</td>
+        <td><span class="badge tier-badge-2">tier 2</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-2">
+        <td>Salt Lake City, UT</td>
+        <td><span class="badge tier-badge-2">tier 2</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-2">
+        <td>St. Louis, MO</td>
+        <td><span class="badge tier-badge-2">tier 2</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-3">
+        <td>Denver, CO</td>
+        <td><span class="badge tier-badge-3">tier 3</span></td>
+        <td class="num">—</td>
+        <td class="num">3</td>
+        <td>—</td>
+        <td class="notes">Already worked: holiglows, coloradochristmaslights, icebergchristmaslights</td>
+      </tr>
+      <tr class="tier-3">
+        <td>Jacksonville, FL</td>
+        <td><span class="badge tier-badge-3">tier 3</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-3">
+        <td>Las Vegas, NV</td>
+        <td><span class="badge tier-badge-3">tier 3</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-3">
+        <td>Little Rock, AR</td>
+        <td><span class="badge tier-badge-3">tier 3</span></td>
+        <td class="num">—</td>
+        <td class="num">1</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-3">
+        <td>Orlando, FL</td>
+        <td><span class="badge tier-badge-3">tier 3</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-3">
+        <td>Tampa, FL</td>
+        <td><span class="badge tier-badge-3">tier 3</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes">Verify demand — warm climate, permanent lighting competition</td>
+      </tr>
+      <tr class="tier-3">
+        <td>Wichita, KS</td>
+        <td><span class="badge tier-badge-3">tier 3</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes"></td>
+      </tr>
+      <tr class="tier-0">
+        <td>Kansas City, MO</td>
+        <td><span class="badge tier-badge-0">home — do not prospect</span></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>—</td>
+        <td class="notes">DO NOT PROSPECT — home market (&#x27;Tis the Season)</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="hint">Scan a market: <code>getwork market-scan "Tulsa, OK"</code> ·
+  Edit tiers/notes in <code>data/markets.json</code> · Regenerate: <code>getwork markets</code>.
+  "Verified installers" = domains whose homepage mentions holiday/christmas lighting.</p>
+</body>
+</html>

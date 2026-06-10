@@ -2,9 +2,19 @@
 
 How an agent turns *"find me holiday lighting companies in «CITY, ST» and build out prospects"* into finished prospect folders + an updated summary table.
 
+## 0. Pick / validate the market
+
+Check `outreach/markets.html` (or `data/markets.json`) for the next unworked tier-1 metro. Validate it first:
+
+```bash
+./getwork market-scan "Tulsa, OK"
+```
+
+This lists verified local installers (homepage mentions holiday/christmas lighting), flags likely franchises and already-built prospects, and updates the market tracker. 10+ verified installers confirms a hot market; ≤3 suggests demoting the tier (note it in `data/markets.json`). The scan output (`data/scans/<slug>.json`) doubles as your candidate list for step 1.
+
 ## 1. Search
 
-Web-search for the target market. Good queries:
+Start from the market-scan candidates; supplement with web search if thin. Good queries:
 
 - `christmas light installation «city state»`
 - `holiday lighting company «city»`

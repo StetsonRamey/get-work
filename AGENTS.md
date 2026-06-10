@@ -2,6 +2,13 @@
 
 Outreach toolkit for prospecting holiday-lighting software work. CLI: `./getwork` (see `./getwork --help`).
 
+## Market research (pick where to prospect)
+
+- `data/markets.json` is the target-market list (tiers, notes). Tier 1 = work first; tier 0 = Kansas City = NEVER prospect (Stetson's home market).
+- `./getwork market-scan "Tulsa, OK"` searches DuckDuckGo, filters directories/lead-gen junk, verifies each domain's homepage mentions holiday lighting, saves `data/scans/<slug>.json`, and updates the market's installer count.
+- `./getwork markets` regenerates `outreach/markets.html` (linked from the preview index). Never edit markets.html by hand.
+- A scan is validation only — it builds no folders. Review the candidate list with Stetson before building prospects. Lawn-care companies that also hang lights are legitimate prospects (classic industry pattern).
+
 ## Prospecting workflow (the big one)
 
 When asked something like *"find holiday lighting companies in Tulsa, OK, build their prospect folders, and update the summary"*, follow `docs/agent-prospecting.md`. Short version:
