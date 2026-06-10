@@ -36,6 +36,11 @@ PROSPECTS = ROOT / "outreach" / "prospects"
 UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
       "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36")
 
+# Brave 429s if queried faster than ~1/min from a datacenter IP, and the
+# cooldown after tripping it is ~5 minutes. Override via MARKET_SCAN_DELAY.
+import os
+QUERY_DELAY = int(os.environ.get("MARKET_SCAN_DELAY", "75"))
+
 QUERY_TEMPLATES = (
     "christmas light installation {metro}",
     "holiday lighting company {metro}",
@@ -67,19 +72,42 @@ FRANCHISE_HINTS = (
 KEYWORDS = ("christmas light", "holiday light", "christmas lighting", "holiday lighting")
 
 
+def brave_search(query: str) -> list[str]:
+    """Return result URLs from Brave Search HTML (no API key)."""
+    r = requests.get(
+        "https://search.brave.com/search",
+        params={"q": query},
+        headers={
+            "User-Agent": UA,
+            "Accept-Language": "en-US,en;q=0.9",
+            # gzip only: brave's brotli streams intermittently fail to decode
+            "Accept-Encoding": "gzip, deflate",
+        },
+        timeout=20,
+    )
+    r.raise_for_status()
+    soup = BeautifulSoup(r.text, "html.parser")
+    urls = []
+    blocks = soup.select('[data-type="web"]') or soup.select(".snippet")
+    for block in blocks:
+        a = block.select_one('a[href^="http"]')
+        if a:
+            urls.append(a["href"])
+    if not urls:  # layout change fallback: all external anchors
+        for a in soup.select('#results a[href^="http"]'):
+            urls.append(a["href"])
+    return urls
+
+
 def ddg_search(query: str) -> list[str]:
     """Return result URLs from DuckDuckGo HTML endpoint."""
-    try:
-        r = requests.post(
-            "https://html.duckduckgo.com/html/",
-            data={"q": query},
-            headers={"User-Agent": UA},
-            timeout=20,
-        )
-        r.raise_for_status()
-    except Exception as e:  # noqa: BLE001
-        print(f"  ! search failed for {query!r}: {e}", file=sys.stderr)
-        return []
+    r = requests.post(
+        "https://html.duckduckgo.com/html/",
+        data={"q": query},
+        headers={"User-Agent": UA},
+        timeout=20,
+    )
+    r.raise_for_status()
     soup = BeautifulSoup(r.text, "html.parser")
     urls = []
     for a in soup.select("a.result__a[href]"):
@@ -93,6 +121,33 @@ def ddg_search(query: str) -> list[str]:
         elif href.startswith("http"):
             urls.append(href)
     return urls
+
+
+ENGINES = (("brave", brave_search), ("ddg", ddg_search))
+
+
+def web_search(query: str, retries: int = 2) -> list[str]:
+    """Try engines in order; return first non-empty result set.
+
+    Search engines rate-limit datacenter IPs aggressively (DDG and Bing both
+    captcha this VM after a few requests); Brave HTML has been the most
+    permissive but 429s on rapid queries — hence retry with backoff.
+    """
+    for attempt in range(retries + 1):
+        for name, fn in ENGINES:
+            try:
+                urls = fn(query)
+            except Exception as e:  # noqa: BLE001
+                print(f"  ! {name} failed: {e}", file=sys.stderr)
+                continue
+            if urls:
+                return urls
+            print(f"  ! {name} returned 0 results (blocked?), trying next engine", file=sys.stderr)
+        if attempt < retries:
+            wait = 150 * (attempt + 1)  # brave's 429 cooldown is ~5 min
+            print(f"  … backing off {wait}s before retry", file=sys.stderr)
+            time.sleep(wait)
+    return []
 
 
 def domain_of(url: str) -> str:
@@ -146,7 +201,7 @@ def scan(metro: str, do_verify: bool = True) -> dict:
     for tmpl in QUERY_TEMPLATES:
         q = tmpl.format(metro=metro)
         print(f"→ Searching: {q}")
-        for url in ddg_search(q):
+        for url in web_search(q):
             d = domain_of(url)
             if not d or d in seen:
                 continue
@@ -159,7 +214,7 @@ def scan(metro: str, do_verify: bool = True) -> dict:
             if d in known:
                 entry["flags"].append("already-prospect")
             seen[d] = entry
-        time.sleep(1.5)  # be polite
+        time.sleep(QUERY_DELAY)  # be polite; datacenter IPs get rate-limited fast
 
     candidates = list(seen.values())
     if do_verify:
@@ -208,6 +263,11 @@ def main() -> int:
     args = ap.parse_args()
 
     result = scan(args.metro, do_verify=not args.no_verify)
+
+    if not result["candidates"]:
+        print("\n✗ All search engines returned 0 results — we're probably rate-limited.", file=sys.stderr)
+        print("  Not saving scan or updating the tracker. Wait a while and retry.", file=sys.stderr)
+        return 2
 
     SCANS.mkdir(parents=True, exist_ok=True)
     out = SCANS / f"{slugify(args.metro)}.json"

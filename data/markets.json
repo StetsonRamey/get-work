@@ -11,7 +11,10 @@
       "metro": "Houston",
       "state": "TX",
       "tier": 1,
-      "notes": ""
+      "notes": "",
+      "last_scan": "2026-06-10",
+      "installer_count": 9,
+      "scan_file": "data/scans/houston-tx.json"
     },
     {
       "metro": "Austin",
