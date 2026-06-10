@@ -10,7 +10,7 @@ Check `outreach/markets.html` (or `data/markets.json`) for the next unworked tie
 ./getwork market-scan "Tulsa, OK"
 ```
 
-Search engines throttle this VM's IP hard. Preferred path: the **local-search handoff**. Each unscanned tier-1/2 metro has a query file at `data/inbox/<metro-slug>.txt`. Stetson runs those queries from his local machine, pastes the result URLs under each `q:` line, and pushes. Then:
+Searches go through the Serper.dev Google API when `SERPER_API_KEY` is set in `.env` (free tier ~2,500 queries; each metro scan = 3 queries). Without a key it falls back to scraping Brave/DDG, which this VM's datacenter IP gets throttled on hard — in that case use the **local-search handoff**. Each unscanned tier-1/2 metro has a query file at `data/inbox/<metro-slug>.txt`. Stetson runs those queries from his local machine, pastes the result URLs under each `q:` line, and pushes. Then:
 
 ```bash
 ./getwork market-scan "Phoenix, AZ" --from-urls data/inbox/phoenix-az.txt

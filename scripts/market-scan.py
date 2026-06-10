@@ -28,6 +28,12 @@ from urllib.parse import parse_qs, unquote, urlparse
 import requests
 from bs4 import BeautifulSoup
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).resolve().parents[1] / ".env")
+except ImportError:
+    pass
+
 ROOT = Path(__file__).resolve().parents[1]
 MARKETS = ROOT / "data" / "markets.json"
 SCANS = ROOT / "data" / "scans"
@@ -70,6 +76,28 @@ FRANCHISE_HINTS = (
     "holidayheroes", "weHangChristmasLights".lower(), "christmaslightpros",
 )
 KEYWORDS = ("christmas light", "holiday light", "christmas lighting", "holiday lighting")
+
+
+SERPER_KEY = os.environ.get("SERPER_API_KEY", "")
+
+
+def serper_search(query: str) -> list[str]:
+    """Return result URLs from the Serper.dev Google API (needs SERPER_API_KEY)."""
+    r = requests.post(
+        "https://google.serper.dev/search",
+        headers={"X-API-KEY": SERPER_KEY, "Content-Type": "application/json"},
+        json={"q": query, "num": 20, "gl": "us", "hl": "en"},
+        timeout=20,
+    )
+    r.raise_for_status()
+    data = r.json()
+    urls = [item["link"] for item in data.get("organic", []) if item.get("link")]
+    # local pack results are often the best small operators — grab their sites too
+    for place in data.get("places", []):
+        w = place.get("website")
+        if w:
+            urls.append(w)
+    return urls
 
 
 def brave_search(query: str) -> list[str]:
@@ -124,6 +152,9 @@ def ddg_search(query: str) -> list[str]:
 
 
 ENGINES = (("brave", brave_search), ("ddg", ddg_search))
+if SERPER_KEY:
+    ENGINES = (("serper", serper_search),) + ENGINES
+    QUERY_DELAY = int(os.environ.get("MARKET_SCAN_DELAY", "2"))  # APIs aren't IP-throttled
 
 
 def web_search(query: str, retries: int = 2) -> list[str]:
