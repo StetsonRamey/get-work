@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import html
 import re
+import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -42,9 +44,12 @@ def section_name(rel: Path) -> str:
 
 
 def main() -> None:
+    # Regenerate the prospect summary table first so the link is fresh.
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "generate-summary.py")], check=False)
+
     files = sorted(
         p for p in OUTREACH.rglob("*.html")
-        if p != INDEX and ".git" not in p.parts
+        if p != INDEX and p != OUTREACH / "summary.html" and ".git" not in p.parts
     )
 
     groups: dict[str, list[tuple[Path, str]]] = {}
@@ -143,6 +148,8 @@ def main() -> None:
     .item-path {{ color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .78rem; overflow-wrap: anywhere; }}
     .item-slug {{ align-self: end; justify-self: start; color: var(--green); background: #eef7f1; border-radius: 999px; padding: .25rem .55rem; font-size: .76rem; font-weight: 800; }}
     .note {{ margin-top: 1rem; color: var(--muted); font-size: .9rem; }}
+    .summary-link {{ display: inline-block; margin-top: .5rem; padding: .55rem 1rem; background: var(--green); color: #fff; border-radius: 999px; font-weight: 800; text-decoration: none; font-size: .95rem; }}
+    .summary-link:hover {{ background: #16613a; }}
   </style>
 </head>
 <body>
@@ -151,6 +158,7 @@ def main() -> None:
       <p class=\"eyebrow\">Local preview</p>
       <h1>Outreach pages</h1>
       <p class=\"lead\">Generated from every <code>.html</code> file under <code>outreach/</code>. Run <code>./scripts/live-preview.sh</code>, edit files, and BrowserSync will refresh the browser on save.</p>
+      <p class=\"lead\"><a class=\"summary-link\" href=\"/summary.html\">&#128202; Prospect summary table &rarr;</a></p>
     </header>
     <div class=\"grid\">{''.join(cards)}
     </div>

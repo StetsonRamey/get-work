@@ -33,6 +33,9 @@ def build_parser() -> argparse.ArgumentParser:
   getwork email holiglows --variant 1 --dry-run
   getwork email holiglows --variant 2
   getwork new-holiday-prospect holiglows "HoliGlows" "https://www.holiglows.com/"
+  getwork scrape https://www.holiglows.com/
+  getwork build-prospect tulsalights "Tulsa Lights" https://tulsalights.com/ --location "Tulsa, OK"
+  getwork summary
   getwork live-preview --port 8765
   getwork build outreach/prospects/holiglows/portfolio.html
 
@@ -57,6 +60,20 @@ Aliases:
     nhp.add_argument("slug", help="prospect slug")
     nhp.add_argument("display_name", nargs="?", help="display/company name")
     nhp.add_argument("website", nargs="?", help="prospect website URL")
+
+    scrape = sub.add_parser("scrape", help="scrape a company website for contact info")
+    scrape.add_argument("url", help="company website URL")
+    scrape.add_argument("--json", action="store_true", help="emit JSON")
+
+    bp = sub.add_parser("build-prospect", help="scrape + scaffold + fill notes + update summary")
+    bp.add_argument("slug", help="prospect slug")
+    bp.add_argument("display_name", help="display/company name")
+    bp.add_argument("website", help="company website URL")
+    bp.add_argument("--location", default="", help="location / service area")
+    bp.add_argument("--force", action="store_true", help="rebuild over existing folder")
+    bp.add_argument("--no-scrape", action="store_true", help="skip web scraping")
+
+    sub.add_parser("summary", help="regenerate outreach/summary.html tracking table")
 
     preview = sub.add_parser("preview", help="start no-cache preview server")
     preview.add_argument("--port", "-p", default="8765", help="port to serve on")
@@ -121,6 +138,22 @@ def main(argv: list[str] | None = None) -> int:
             if args.website:
                 cmd.append(args.website)
             return run(cmd)
+        case "scrape":
+            cmd = [script("scrape-prospect.py"), args.url]
+            if args.json:
+                cmd.append("--json")
+            return run(cmd)
+        case "build-prospect":
+            cmd = [script("build-prospect.py"), args.slug, args.display_name, args.website]
+            if args.location:
+                cmd.extend(["--location", args.location])
+            if args.force:
+                cmd.append("--force")
+            if args.no_scrape:
+                cmd.append("--no-scrape")
+            return run(cmd)
+        case "summary":
+            return run([script("generate-summary.py")])
         case "preview":
             return run([script("preview.sh"), str(args.port)])
         case "live-preview":
