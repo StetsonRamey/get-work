@@ -2,12 +2,13 @@
 """Create Fastmail draft emails from prospect templates.
 
 Usage:
-    ./scripts/create-email-draft.py <prospect-slug> [email-index]
+    ./scripts/create-email-draft.py <prospect-slug> [variant-index]
 
 Examples:
-    ./scripts/create-email-draft.py holiglows              # Creates first (Initial Email)
-    ./scripts/create-email-draft.py holiglows 2            # Creates second (Follow-up 1)
-    ./scripts/create-email-draft.py holiglows --all         # Creates all emails
+    ./scripts/create-email-draft.py holiglows              # Creates variant 1
+    ./scripts/create-email-draft.py holiglows 1            # Creates variant 2
+    ./scripts/create-email-draft.py holiglows --variant 2   # Creates variant 2
+    ./scripts/create-email-draft.py holiglows --all         # Preview/create both variants
 """
 
 from __future__ import annotations
@@ -341,12 +342,18 @@ def main() -> None:
         nargs="?",
         type=int,
         default=0,
-        help="Email section index (0=first, 1=second, etc). Omit or 0 for first.",
+        help="Variant index to create (0=variant 1, 1=variant 2). Omit or 0 for variant 1.",
+    )
+    parser.add_argument(
+        "--variant",
+        type=int,
+        choices=(1, 2),
+        help="Variant number to create (1 or 2). Overrides positional index.",
     )
     parser.add_argument(
         "--all",
         action="store_true",
-        help="Create all email sections from the template",
+        help="Create all email variants from the template",
     )
     parser.add_argument(
         "--dry-run",
@@ -379,11 +386,19 @@ def main() -> None:
         print(f"✗ No email sections found in {prospect_slug}/email.md", file=sys.stderr)
         sys.exit(1)
     
-    # Determine which sections to process
+    # Determine which variant(s) to process.
+    # Positional indexes are zero-based for backward compatibility; --variant is one-based.
     if args.all:
         sections_to_process = list(enumerate(email_sections))
     else:
-        idx = min(args.index, len(email_sections) - 1)
+        idx = args.variant - 1 if args.variant else args.index
+        if idx < 0 or idx >= len(email_sections):
+            print(
+                f"✗ Variant index {idx} is out of range for {prospect_slug}/email.md "
+                f"({len(email_sections)} variant(s) found)",
+                file=sys.stderr,
+            )
+            sys.exit(1)
         sections_to_process = [(idx, email_sections[idx])]
     
     # Get sender email

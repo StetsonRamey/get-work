@@ -14,7 +14,7 @@ Creates:
 ```
 outreach/prospects/holiglows/
 ├── portfolio.html          (copy of portfolio-base.html)
-├── email.md                (empty, you'll create this)
+├── email.md                (copy of base template with 2 variants)
 ├── notes.md                (template with fields to fill)
 └── assets/
     └── headshot.jpg        (symlink to base headshot)
@@ -58,8 +58,7 @@ Edit `outreach/prospects/holiglows/notes.md`:
 ## Send log
 
 - [ ] Initial email sent:
-- [ ] Follow-up 1 sent:
-- [ ] Follow-up 2 sent:
+- Variant used:
 ```
 
 ### Step 3: Customize Portfolio (HTML/PDF)
@@ -73,87 +72,67 @@ Edit `outreach/prospects/holiglows/portfolio.html`:
 ./scripts/build.sh outreach/prospects/holiglows/portfolio.html
 ```
 
-### Step 4: Create Email Template
+### Step 4: Pick an Email Variant
 
-Create `outreach/prospects/holiglows/email.md` based on `outreach/base/email-template.md`:
+`outreach/prospects/holiglows/email.md` is copied from `outreach/base/email-template.md` when the prospect is created. It contains the two variants we are testing:
 
 ```markdown
-## Initial Email
+## Initial Email Variant 1
 
 **To:** {CONTACT_NAME}
-**Subject:** Improving quote flow + routing for {PROSPECT_NAME}
+**Subject:** How many hours did you spending routing your customers last season?
 
 Hey {CONTACT_NAME},
 
-I noticed {PROSPECT_NAME} serves the Denver area and uses a web form for quotes. I build software systems for companies like you that optimize the entire customer journey — from quote-to-install.
+Does it take you more than a few hours to plan and route all your customers, or bill them?  Is chasing payments on invoices challenging?
 
-I put together a quick page showing workflows I've built for similar companies around streamlining quotes, installing routing, and customer communication:
+I run a holiday lighting company too ([Tis the Season](https://tistheseasonkc.com) in Kansas City).  I had trouble in those areas, so I built some software that automates as much as possible - routing, billing, customer texts, everything.
 
-{PORTFOLIO_URL}
+Here are a few short videos showing how it works for us: {PORTFOLIO_URL}
 
-If optimizing your quote flow or install routing sounds useful, I'd be happy to schedule a quick call or meet in person.
+I build this type of custom tooling for other lighting companies now too.  Take a look if interested, reply "get lost" if not and I'm gone.
 
-Best,
-{YOUR_NAME}
-{YOUR_PHONE}
-{YOUR_EMAIL}
+-- Stetson
 
----
-
-## Follow-up 1
+## Initial Email Variant 2
 
 **To:** {CONTACT_NAME}
-**Subject:** Re: Improving quote flow
+**Subject:** How I run my lighting company on software I built myself
 
-Hey {CONTACT_NAME},
+Hey {CONTACT_NAME} — I run a holiday lighting company too ([Tis the Season](https://tistheseasonkc.com) in Kansas City).  I'm guessing your Oct–Dec looks like mine: 60 to 70 days of chaos.
 
-Just bumping this — if there's friction in your quote process or you want to streamline how you dispatch installs, I've built systems that can help.
+Over the last 5 years I got tired of Zapier, spreadsheets, and other tools I only needed for one specific thing. So I built real software we use to route crews, bill customers, send text messages instead of emails -- all automated.  We close more sales, do way less admin, and my software bill is much smaller.
 
-{PORTFOLIO_URL}
+I recorded a few short videos of what I built to run my business so you can see it instead of taking my word for it: {PORTFOLIO_URL}
 
-No pressure — I'm local to Denver and would be happy to chat.
+If it'd help to have the same built around your operation, that's what I do. Worth a 5-min watch?
 
-Best,
-{YOUR_NAME}
+(and if you never want to hear from me again, reply and tell me and I'll beat it.)
 
----
+- Stetson
 
-## Follow-up 2
-
-**To:** {CONTACT_NAME}
-**Subject:** Quick routing optimization call?
-
-Hey {CONTACT_NAME},
-
-Last note. If you'd find it useful, I can show you a lightweight routing optimization for {PROSPECT_NAME} in 30 minutes — just a quick call to see if it's worth exploring.
-
-No obligation either way.
-
-Best,
-{YOUR_NAME}
-```
-
-### Step 5: Preview Email Template
+### Step 5: Preview One or Both Variants
 
 ```bash
-./scripts/create-email-draft.py holiglows --dry-run
+./scripts/create-email-draft.py holiglows --variant 1 --dry-run
+./scripts/create-email-draft.py holiglows --variant 2 --dry-run
 ```
 
 Output shows what will be created:
 
 ```
-📧 Initial Email
+📧 Initial Email Variant 1
    To: anvar@holiglows.com
-   Subject: Improving quote flow + routing for HoliGlows
+   Subject: How many hours did you spending routing your customers last season?
    [DRY RUN - not sent to Fastmail]
 
 --- Subject ---
-Improving quote flow + routing for HoliGlows
+How many hours did you spending routing your customers last season?
 
 --- Body ---
 Hey Anvar,
 
-I noticed HoliGlows serves the Denver area and uses a web form for quotes...
+Does it take you more than a few hours to plan and route all your customers, or bill them?...
 
 {PORTFOLIO_URL} → becomes https://holiglows.stetson.dev/
 {YOUR_NAME} → becomes Stetson
@@ -161,18 +140,22 @@ I noticed HoliGlows serves the Denver area and uses a web form for quotes...
 ...
 ```
 
-### Step 6: Create First Draft
+### Step 6: Create One Draft
+
+Pick exactly one variant for this prospect:
 
 ```bash
-./scripts/create-email-draft.py holiglows
+./scripts/create-email-draft.py holiglows --variant 1
+# or
+./scripts/create-email-draft.py holiglows --variant 2
 ```
 
 Output:
 
 ```
-📧 Initial Email
+📧 Initial Email Variant 1
    To: anvar@holiglows.com
-   Subject: Improving quote flow + routing for HoliGlows
+   Subject: How many hours did you spending routing your customers last season?
    ✓ Draft created in Fastmail
 ```
 
@@ -193,44 +176,26 @@ Update `outreach/prospects/holiglows/notes.md`:
 ## Send log
 
 - [x] Initial email sent: 2026-06-09 (anvar@holiglows.com)
-- [ ] Follow-up 1 sent:
-- [ ] Follow-up 2 sent:
+- Variant used:
 - Responses: (none yet)
 ```
 
-### Step 9: Schedule & Send Follow-ups
+### Step 9: No Follow-ups For Now
 
-After 3-5 days, create follow-up 1:
-
-```bash
-./scripts/create-email-draft.py holiglows 1
-```
-
-Then in Fastmail: review, tweak, send.
-
-Update notes with date sent.
-
-After another 3-5 days, send follow-up 2:
-
-```bash
-./scripts/create-email-draft.py holiglows 2
-```
+We are currently only creating the initial email draft, using one of two variants. Do not create follow-up drafts unless the campaign strategy changes.
 
 ## Using the Helper Script
 
 If you prefer shorter commands, use `send-emails.sh`:
 
 ```bash
-# Initial email
+# Variant 1 (default)
 ./scripts/send-emails.sh holiglows
 
-# All follow-ups
-./scripts/send-emails.sh holiglows followup
+# Variant 2
+./scripts/send-emails.sh holiglows variant-2
 
-# All at once
-./scripts/send-emails.sh holiglows all
-
-# Preview without sending
+# Preview both variants without creating drafts
 ./scripts/send-emails.sh holiglows preview
 ```
 
@@ -244,49 +209,19 @@ If you prefer shorter commands, use `send-emails.sh`:
 ./scripts/new-prospect.sh prospect-2 "Company Two"
 # ... etc
 
-# Fill notes.md and email.md for each
+# Fill notes.md contact info for each; email.md is scaffolded from the base template
 
-# Create all first emails
+# Preview variant 1 for each
 for slug in prospect-{1..5}; do
-  ./scripts/create-email-draft.py "$slug" --dry-run
+  ./scripts/create-email-draft.py "$slug" --variant 1 --dry-run
 done
 
-# If they look good, create drafts
+# If they look good, create one draft per prospect
 for slug in prospect-{1..5}; do
-  ./scripts/create-email-draft.py "$slug"
+  ./scripts/create-email-draft.py "$slug" --variant 1
 done
 
 # Review all drafts in Fastmail, personalize, and send
-```
-
-### Multi-Step Campaign (Like Holiday Lighting)
-
-For the holiday lighting campaign, you might have 3+ sequences:
-
-**email-initial.md:**
-```markdown
-## Initial Email
-[Your cold outreach]
-
----
-
-## Follow-up 1
-[3-5 days later]
-
----
-
-## Follow-up 2
-[Another 3-5 days]
-```
-
-Then:
-
-```bash
-# Send first round
-./scripts/create-email-draft.py coloradochristmaslights --all
-
-# 5 days later, update and send next round
-# (Would need multiple email.md files or a sequence manager)
 ```
 
 ### Personalization in Fastmail
@@ -357,7 +292,7 @@ I noticed {PROSPECT_NAME} does...
 2. **Preview before first email**: Always use `--dry-run` to check variable substitution
 3. **Batch creation**: Create 5+ drafts, review them all, then send one per day
 4. **Track responses**: Update notes.md with responses and dates
-5. **A/B test subjects**: Create different email.md files to test subject lines
+5. **A/B test cleanly**: choose `--variant 1` or `--variant 2` per prospect and record the variant in `notes.md`
 
 ## See Also
 

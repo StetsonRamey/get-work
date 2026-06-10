@@ -95,10 +95,9 @@ cp .env.example .env
 # Edit .env with your Fastmail API token (see docs/QUICK-START.md)
 
 # Create draft emails from templates
-./scripts/create-email-draft.py holiglows              # First email
-./scripts/create-email-draft.py holiglows 1            # Follow-up 1
-./scripts/create-email-draft.py holiglows --all        # All emails
-./scripts/create-email-draft.py holiglows --dry-run    # Preview first
+./scripts/create-email-draft.py holiglows --variant 1          # Variant 1
+./scripts/create-email-draft.py holiglows --variant 2          # Variant 2
+./scripts/create-email-draft.py holiglows --all --dry-run      # Preview both
 ```
 
 Templates use variables like `{PROSPECT_NAME}` and `{CONTACT_NAME}` that are auto-populated from your `notes.md`. See `docs/QUICK-START.md` for the full 5-minute setup.

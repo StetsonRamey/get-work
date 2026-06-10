@@ -47,51 +47,16 @@ echo ".env" >> .gitignore
 
 ## Creating Email Templates
 
-For each prospect, create an `outreach/prospects/<slug>/email.md` file:
+New prospect scripts now copy `outreach/base/email-template.md` into each prospect folder as `email.md`. That file contains exactly two sections:
 
-```markdown
-## Initial Email
+- `## Initial Email Variant 1`
+- `## Initial Email Variant 2`
 
-**To:** {CONTACT_NAME}
-**Subject:** Local routing + workflow demos for {PROSPECT_NAME}
-
-Hey {CONTACT_NAME},
-
-I'm Stetson, and I build software systems for holiday lighting companies...
-
-Best,
-{YOUR_NAME}
-{YOUR_PHONE}
-{YOUR_EMAIL}
-
----
-
-## Follow-up 1
-
-**To:** {CONTACT_NAME}
-**Subject:** Re: local routing + workflow demos
-
-Just wanted to bump this once...
-
-Best,
-{YOUR_NAME}
-
----
-
-## Follow-up 2
-
-**To:** {CONTACT_NAME}
-**Subject:** Worth mapping one routing workflow?
-
-Last note from me...
-
-Best,
-{YOUR_NAME}
-```
+Fill the contact data in `notes.md`, then choose which variant to draft.
 
 ### Template Variables
 
-Available in all emails:
+Available in both variants:
 
 - `{PROSPECT_NAME}` — Company name (from notes.md h1)
 - `{CONTACT_NAME}` — Contact person (from notes.md "Contact person:" field)
@@ -113,7 +78,7 @@ The script automatically pulls data from your prospect's `notes.md`:
 
 ## Contact info
 
-- Contact person: Gulisada Chistol or Anvar Batirov
+- Contact person: Anvar Batirov
 - Contact email: anvar@holiglows.com
 ```
 
@@ -121,65 +86,53 @@ These become variables in your email template (no manual substitution needed).
 
 ## Usage
 
-### Create First Email Draft
+### Preview a Variant Without Creating a Draft
 
 ```bash
-./scripts/create-email-draft.py holiglows
+./scripts/create-email-draft.py holiglows --variant 1 --dry-run
+./scripts/create-email-draft.py holiglows --variant 2 --dry-run
 ```
 
-Or with explicit index:
+The older positional form still works (`0` = variant 1, `1` = variant 2):
 
 ```bash
-./scripts/create-email-draft.py holiglows 0
+./scripts/create-email-draft.py holiglows 1 --dry-run
 ```
 
-### Create Second Email (Follow-up 1)
+### Create a Fastmail Draft
 
 ```bash
-./scripts/create-email-draft.py holiglows 1
+./scripts/create-email-draft.py holiglows --variant 1
+# or
+./scripts/create-email-draft.py holiglows --variant 2
 ```
 
-### Create All Emails at Once
+### Preview Both Variants
 
 ```bash
-./scripts/create-email-draft.py holiglows --all
-```
-
-### Preview Without Sending (Dry Run)
-
-See what would be created without posting to Fastmail:
-
-```bash
-./scripts/create-email-draft.py holiglows --dry-run
 ./scripts/create-email-draft.py holiglows --all --dry-run
 ```
+
+Use `--all` mainly for comparison/testing. For real outreach, pick one variant per prospect so you do not accidentally create duplicate drafts to the same person.
 
 ## Workflow Example
 
 ```bash
-# 1. Create a new prospect
-./scripts/new-prospect.sh holiglows "HoliGlows"
+# 1. Create a new holiday-lighting prospect. This creates portfolio.html,
+#    notes.md, and email.md copied from outreach/base/email-template.md.
+./scripts/new-holiday-prospect.sh holiglows "HoliGlows" "https://www.holiglows.com/"
 
 # 2. Edit notes.md with contact info
 vim outreach/prospects/holiglows/notes.md
 
-# 3. Create email.md with your template
-cat > outreach/prospects/holiglows/email.md << 'EOF'
-## Initial Email
-**To:** {CONTACT_NAME}
-**Subject:** Local routing + workflow demos for {PROSPECT_NAME}
+# 3. Preview each variant
+./scripts/create-email-draft.py holiglows --variant 1 --dry-run
+./scripts/create-email-draft.py holiglows --variant 2 --dry-run
 
-Hey {CONTACT_NAME},
-...
-EOF
+# 4. Create exactly one draft in Fastmail
+./scripts/create-email-draft.py holiglows --variant 1
 
-# 4. Preview what will be sent
-./scripts/create-email-draft.py holiglows --dry-run
-
-# 5. Create draft in Fastmail
-./scripts/create-email-draft.py holiglows
-
-# 6. Review in Fastmail, make any tweaks, and send
+# 5. Review in Fastmail, make any tweaks, send, and record the variant in notes.md
 ```
 
 ## Troubleshooting
@@ -223,7 +176,7 @@ Make sure your `notes.md` has the right format:
    ```markdown
    ## Send log
    - [x] Initial email sent: 2026-06-09 to anvar@holiglows.com
-   - [ ] Follow-up 1 sent:
+   - Variant used: 1
    ```
 4. **Reuse templates**: Once you have a good template for one prospect type, copy and adapt it for others
 

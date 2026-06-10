@@ -4,11 +4,11 @@ You now have everything to automatically create Fastmail drafts from email templ
 
 ## What You Get
 
-✅ **Automatic variable substitution** — Fill templates with prospect data from `notes.md`  
-✅ **Fastmail integration** — Create drafts directly in your Fastmail account  
-✅ **Multi-email sequences** — Template system for initial + follow-ups  
-✅ **Preview before sending** — Dry-run mode to check everything  
-✅ **Tracked workflow** — Keep notes on who you've contacted  
+✅ **Automatic variable substitution** — Fill templates with prospect data from `notes.md`
+✅ **Fastmail integration** — Create drafts directly in your Fastmail account
+✅ **Two-variant initial emails** — Pick variant 1 or 2 per prospect
+✅ **Preview before sending** — Dry-run mode to check everything
+✅ **Tracked workflow** — Keep notes on who you've contacted
 
 ## Files Created
 
@@ -75,30 +75,33 @@ Open Fastmail → Drafts → review and send!
 
 ## Common Workflows
 
-### Create all emails for a prospect
+### Create one email variant for a prospect
 
 ```bash
-./scripts/create-email-draft.py <slug> --all
+./scripts/create-email-draft.py <slug> --variant 1
+./scripts/create-email-draft.py <slug> --variant 2
 ```
 
 Or using the helper:
 
 ```bash
-./scripts/send-emails.sh <slug> all
+./scripts/send-emails.sh <slug> variant-1
+./scripts/send-emails.sh <slug> variant-2
 ```
 
 ### Preview before creating
 
 ```bash
-./scripts/create-email-draft.py <slug> --dry-run
+./scripts/create-email-draft.py <slug> --variant 1 --dry-run
 ```
 
-### Create follow-ups only
+### Compare both variants
 
 ```bash
-./scripts/create-email-draft.py <slug> 1    # Follow-up 1 (second section)
-./scripts/create-email-draft.py <slug> 2    # Follow-up 2 (third section)
+./scripts/create-email-draft.py <slug> --all --dry-run
 ```
+
+Use `--all` for preview/comparison. For real outreach, create one variant per prospect.
 
 ## How It Works
 
@@ -107,18 +110,18 @@ Or using the helper:
 1. You create a prospect folder with `notes.md`:
    ```markdown
    # HoliGlows
-   
+
    ## Contact info
    - Contact person: Anvar
    - Contact email: anvar@holiglows.com
    ```
 
-2. You create `email.md` with template:
+2. The new prospect script copies `email.md` from `outreach/base/email-template.md`:
    ```markdown
-   ## Initial Email
+   ## Initial Email Variant 1
    **To:** {CONTACT_NAME}
-   **Subject:** Hi {PROSPECT_NAME}
-   
+   **Subject:** How many hours did you spending routing your customers last season?
+
    Hey {CONTACT_NAME}, I noticed {PROSPECT_NAME}...
    ```
 
@@ -236,7 +239,7 @@ Check `notes.md` format:
 
 1. ✅ Set up .env with Fastmail credentials
 2. ✅ Test with existing prospect: `./scripts/create-email-draft.py coloradochristmaslights`
-3. ✅ Create email.md for a new prospect
+3. ✅ Create a new prospect; email.md is copied automatically
 4. ✅ Batch create and manage campaigns
 5. (Optional) Extend script for more features (auto-send, tracking, etc.)
 

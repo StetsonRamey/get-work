@@ -21,6 +21,7 @@ ln -s "../../../base/assets/headshot.jpg" "$DEST/assets/headshot.jpg"
 
 # Copy the base HTML in.
 cp "$ROOT/outreach/base/portfolio-base.html" "$DEST/portfolio.html"
+cp "$ROOT/outreach/base/email-template.md" "$DEST/email.md"
 
 # Drop a notes file for context-gathering.
 cat > "$DEST/notes.md" <<EOF
@@ -40,14 +41,24 @@ cat > "$DEST/notes.md" <<EOF
 - [ ] Replace {{DATE}} in portfolio.html (footer — Month Year format)
 - [ ] Build PDF: \`./scripts/build.sh outreach/prospects/$SLUG/portfolio.html\`
 
+## Contact info
+
+- Contact person:
+- Contact email:
+
 ## Send log
-- [ ] (when sent, to whom, channel, response)
+- [ ] Initial email variant sent:
+- Variant used:
+- Response notes:
 EOF
 
 echo "✓ Created $DEST/"
 echo "  $DEST/portfolio.html"
+echo "  $DEST/email.md"
 echo "  $DEST/notes.md"
 echo ""
 echo "Next:"
 echo "  1. Edit portfolio.html — search for {{ to find every customization point"
-echo "  2. ./scripts/build.sh outreach/prospects/$SLUG/portfolio.html"
+echo "  2. Fill Contact person/email in notes.md"
+echo "  3. Preview an email variant: ./scripts/create-email-draft.py $SLUG --variant 1 --dry-run"
+echo "  4. ./scripts/build.sh outreach/prospects/$SLUG/portfolio.html"

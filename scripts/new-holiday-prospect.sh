@@ -25,6 +25,7 @@ fi
 mkdir -p "$DEST/assets"
 ln -s "../../../base/assets/headshot.jpg" "$DEST/assets/headshot.jpg"
 cp "$BASE" "$DEST/portfolio.html"
+cp "$ROOT/outreach/base/email-template.md" "$DEST/email.md"
 
 python3 - <<PY
 from pathlib import Path
@@ -57,9 +58,9 @@ PY
 cat > "$DEST/notes.md" <<EOF
 # $DISPLAY
 
-**Status:** drafting  
-**Date:** $(date +%Y-%m-%d)  
-**Website:** $WEBSITE  
+**Status:** drafting
+**Date:** $(date +%Y-%m-%d)
+**Website:** $WEBSITE
 **Prospect URL:** https://$SLUG.stetson.dev/
 
 ## Company research
@@ -102,14 +103,17 @@ cat > "$DEST/notes.md" <<EOF
 
 ## Send log
 
-- [ ] Initial email sent:
-- [ ] Follow-up 1 sent:
-- [ ] Follow-up 2 sent:
+- [ ] Initial email variant sent:
+- Variant used:
 - Response notes:
 EOF
 
 echo "✓ Created $DEST/"
 echo "  $DEST/portfolio.html"
+echo "  $DEST/email.md"
 echo "  $DEST/notes.md"
 echo ""
-echo "Preview after starting server: http://localhost:8765/prospects/$SLUG/portfolio.html"
+echo "Next:"
+echo "  1. Fill Contact person/email in notes.md"
+echo "  2. Pick a variant: ./scripts/create-email-draft.py $SLUG --variant 1 --dry-run"
+echo "  3. Preview portfolio after starting server: http://localhost:8765/prospects/$SLUG/portfolio.html"

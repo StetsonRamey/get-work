@@ -2,18 +2,18 @@
 # Convenience script to create email drafts with common workflows.
 # 
 # Usage:
-#   ./scripts/send-emails.sh <prospect> [initial|followup|all|preview]
+#   ./scripts/send-emails.sh <prospect> [variant-1|variant-2|all|preview]
 #
 # Examples:
-#   ./scripts/send-emails.sh holiglows              # Send first email
-#   ./scripts/send-emails.sh holiglows followup     # Send all follow-ups
-#   ./scripts/send-emails.sh holiglows all          # Send all
-#   ./scripts/send-emails.sh holiglows preview      # Preview all without sending
+#   ./scripts/send-emails.sh holiglows              # Create variant 1
+#   ./scripts/send-emails.sh holiglows variant-2    # Create variant 2
+#   ./scripts/send-emails.sh holiglows all          # Create both variants
+#   ./scripts/send-emails.sh holiglows preview      # Preview both variants without creating drafts
 
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-PROSPECT="${1:?Usage: send-emails.sh <prospect-slug> [initial|followup|all|preview]}"
+PROSPECT="${1:?Usage: send-emails.sh <prospect-slug> [variant-1|variant-2|all|preview]}"
 ACTION="${2:-initial}"
 
 # Check that .env exists
@@ -35,16 +35,16 @@ if [[ ! -f "$EMAIL_FILE" ]]; then
 fi
 
 case "$ACTION" in
-  initial|first)
-    echo "📧 Creating initial email for $PROSPECT..."
-    "$ROOT/scripts/create-email-draft.py" "$PROSPECT" 0
+  initial|first|variant-1|variant1|v1|1)
+    echo "📧 Creating email variant 1 for $PROSPECT..."
+    "$ROOT/scripts/create-email-draft.py" "$PROSPECT" --variant 1
     ;;
-  followup|follow-up|follow)
-    echo "📧 Creating follow-up emails for $PROSPECT..."
-    "$ROOT/scripts/create-email-draft.py" "$PROSPECT" --all | grep -E "Follow-up|✓"
+  variant-2|variant2|v2|2)
+    echo "📧 Creating email variant 2 for $PROSPECT..."
+    "$ROOT/scripts/create-email-draft.py" "$PROSPECT" --variant 2
     ;;
   all)
-    echo "📧 Creating all emails for $PROSPECT..."
+    echo "📧 Creating both email variants for $PROSPECT..."
     "$ROOT/scripts/create-email-draft.py" "$PROSPECT" --all
     ;;
   preview|dry-run|dry)
@@ -53,7 +53,7 @@ case "$ACTION" in
     ;;
   *)
     echo "✗ Unknown action: $ACTION" >&2
-    echo "  Valid actions: initial, followup, all, preview" >&2
+    echo "  Valid actions: variant-1, variant-2, all, preview" >&2
     exit 1
     ;;
 esac

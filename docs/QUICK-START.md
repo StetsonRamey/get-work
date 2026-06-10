@@ -59,51 +59,47 @@ FASTMAIL_MAILBOX_ID=Drafts
 - Website: https://www.holiglows.com/
 ```
 
-### 3. Create `email.md` with your template
+### 3. Review `email.md`
 
-Copy the example template from `outreach/base/email-template.md` or:
-
-```bash
-cp outreach/prospects/coloradochristmaslights/email.md \
-   outreach/prospects/holiglows/email.md
-```
-
-Edit it with your message using variables like `{PROSPECT_NAME}` and `{CONTACT_NAME}`.
+New prospect scripts copy `outreach/base/email-template.md` into the prospect folder automatically. It contains the two initial-email variants we are testing. Edit only if you need a prospect-specific tweak; otherwise fill `notes.md` and pick a variant when drafting.
 
 ### 4. Preview (optional)
 
 ```bash
-./scripts/create-email-draft.py holiglows --dry-run
+./scripts/create-email-draft.py holiglows --variant 1 --dry-run
+./scripts/create-email-draft.py holiglows --variant 2 --dry-run
 ```
 
 You'll see exactly what gets sent:
 
 ```
-📧 Initial Email
+📧 Initial Email Variant 1
    To: anvar@holiglows.com
-   Subject: Local routing + workflow demos for HoliGlows
+   Subject: How many hours did you spending routing your customers last season?
    [DRY RUN - not sent to Fastmail]
 
 --- Subject ---
-Local routing + workflow demos for HoliGlows
+How many hours did you spending routing your customers last season?
 
 --- Body ---
 Hey Gulisada,
 
-I'm Stetson...
+Does it take you more than a few hours to plan and route all your customers, or bill them?...
 ```
 
 ### 5. Send to Fastmail
 
 ```bash
-./scripts/create-email-draft.py holiglows
+./scripts/create-email-draft.py holiglows --variant 1
+# or
+./scripts/create-email-draft.py holiglows --variant 2
 ```
 
 Output:
 ```
-📧 Initial Email
+📧 Initial Email Variant 1
    To: anvar@holiglows.com
-   Subject: Local routing + workflow demos for HoliGlows
+   Subject: How many hours did you spending routing your customers last season?
    ✓ Draft created in Fastmail
 ```
 
@@ -114,18 +110,22 @@ Output:
 - Edit if needed (add personal touches)
 - Send!
 
-## Send Follow-ups
+## Choose a Variant
+
+For each prospect, create exactly one initial-email draft:
 
 ```bash
-# Create Follow-up 1 (second section in email.md)
-./scripts/create-email-draft.py holiglows 1
+# Variant 1
+./scripts/create-email-draft.py holiglows --variant 1
 
-# Create Follow-up 2 (third section)
-./scripts/create-email-draft.py holiglows 2
+# Variant 2
+./scripts/create-email-draft.py holiglows --variant 2
 
-# Or all at once
-./scripts/create-email-draft.py holiglows --all
+# Compare both without creating drafts
+./scripts/create-email-draft.py holiglows --all --dry-run
 ```
+
+Do not use follow-up sections for now; record the chosen variant in `notes.md`.
 
 ## Template Variables
 
@@ -150,7 +150,7 @@ All are automatically pulled from your `notes.md` file.
    ```markdown
    ## Send log
    - [x] Initial email sent: 2026-06-09
-   - [ ] Follow-up 1 sent:
+   - Variant used: 1
    ```
 
 ## More Help
